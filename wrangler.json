@@ -6,18 +6,21 @@
   "compatibility_flags": [
     "nodejs_compat"
   ],
+  "assets": {
+    "directory": "./dist"
+  },
   "d1_databases": [
     {
       "binding": "DB",
       "database_name": "commerce_db_production",
-      "database_id": "00000000-0000-0000-0000-000000000000",
+      "database_id": "96a7db30-95cc-4325-8249-64bb5015bd57",
       "migrations_dir": "migrations"
     }
   ],
   "kv_namespaces": [
     {
       "binding": "KV",
-      "id": "00000000000000000000000000000000"
+      "id": "79577c8e12b043e8807f7132307a6ffc"
     }
   ],
   "r2_buckets": [
