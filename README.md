@@ -49,8 +49,8 @@ In accordance with the **Project Constitution**, the following documentation sui
 ## Engineering Status & Current Release
 
 - **Roadmap & Architecture:** Fully approved by User.
-- **Current Version:** `v0.13.0` (Milestone 12: Order Lifecycle Management & Audit Timeline).
-- **Next Milestone:** `v0.14.0` (Milestone 13: Admin Dashboard & Core E-Commerce Analytics).
+- **Current Version:** `v0.14.0` (Milestone 13: Admin Dashboard & Core E-Commerce Analytics).
+- **Next Milestone:** `v1.0.0` (Milestone 14: Version 1 Production Hardening, Audit & Stable Release).
 
 In accordance with the **Project Constitution**, each milestone is built, tested, audited, and tagged independently before moving to the next.
 

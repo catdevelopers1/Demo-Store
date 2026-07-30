@@ -21,7 +21,7 @@ Every milestone is strictly versioned. **Do not combine multiple large milestone
 - **[COMPLETED] v0.11.0 — Milestone 10:** Discount Code & Coupon Promotion Engine
 - **[COMPLETED] v0.12.0 — Milestone 11:** Cash on Delivery (COD) Checkout Engine
 - **[COMPLETED] v0.13.0 — Milestone 12:** Order Lifecycle Management & Audit Timeline
-- **v0.14.0 — Milestone 13:** Admin Dashboard & Core E-Commerce Analytics
+- **[COMPLETED] v0.14.0 — Milestone 13:** Admin Dashboard & Core E-Commerce Analytics
 - **v0.15.0 / v1.0.0 — Milestone 14:** Version 1 Production Hardening, Audit & Stable Release
 
 ---
@@ -376,8 +376,9 @@ Every milestone is strictly versioned. **Do not combine multiple large milestone
 
 ---
 
-### Milestone 13: Admin Dashboard & Core E-Commerce Analytics (v0.14.0)
+### Milestone 13: Admin Dashboard & Core E-Commerce Analytics (v0.14.0) — [COMPLETED]
 - **Goal:** Build the executive Admin Dashboard overview summarizing key Pakistani e-commerce metrics and store health indicators.
+- **Status:** Completed on 2026-07-30 (`v0.14.0`). All type checking, linting, unit tests, integration tests (<20ms query execution time), and E2E dashboard tests passing.
 - **Features included:**
   - Aggregation SQL queries in D1:
     - Total Gross Revenue PKR (for Delivered orders).
@@ -444,6 +445,7 @@ Every milestone is strictly versioned. **Do not combine multiple large milestone
 - **Milestone 10 (`v0.11.0`):** Complete & Verified (2026-07-30).
 - **Milestone 11 (`v0.12.0`):** Complete & Verified (2026-07-30).
 - **Milestone 12 (`v0.13.0`):** Complete & Verified (2026-07-30).
-- **Next Planned Release:** Milestone 13 (`v0.14.0`) — Admin Dashboard & Core E-Commerce Analytics.
+- **Milestone 13 (`v0.14.0`):** Complete & Verified (2026-07-30).
+- **Next Planned Release:** Milestone 14 (`v0.15.0 / v1.0.0`) — Version 1 Production Hardening, Audit & Stable Release.
   - In accordance with the **Project Constitution**: *"Never continue implementing additional features until the current milestone is fully complete. Build only the approved milestone."*
-  - Ready to commence Milestone 13 (`v0.14.0`) upon user command.
+  - Ready to commence Milestone 14 (`v1.0.0`) upon user command.

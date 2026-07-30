@@ -787,3 +787,55 @@ Public endpoint for customers or guests to track COD order progress and view the
   }
   ```
 - **Success Response (`200 OK`):** Returns the updated `CodOrder` object with the newly appended timeline record.
+
+---
+
+## 16. Admin Dashboard & Core E-Commerce Analytics Endpoints (`/api/v1/admin/analytics/*`) — [Milestone 13 - v0.14.0]
+
+### 16.1 Executive Analytics Overview (`GET /api/v1/admin/analytics/overview?timeframe=30d`)
+**RBAC Protected (`ADMIN` required):** Executes index-backed parallel D1 SQLite aggregation queries to compute executive Pakistani e-commerce metrics in `<20ms`.
+- **Query Parameters:**
+  - `timeframe`: Evaluation window (`'7d'`, `'30d'`, `'90d'`, `'all'`). Default is `'30d'`.
+- **Success Response (`200 OK`):**
+  ```json
+  {
+    "success": true,
+    "data": {
+      "timeframe": "30d",
+      "totalGrossRevenuePkr": 450000,
+      "totalOrdersCount": 15,
+      "deliveredOrdersCount": 5,
+      "averageOrderValuePkr": 90000,
+      "pendingVerificationCount": 2,
+      "lowStockAlertsCount": 3,
+      "outOfStockAlertsCount": 1,
+      "statusBreakdown": {
+        "PENDING_VERIFICATION": 2,
+        "CONFIRMED": 3,
+        "PROCESSING": 2,
+        "SHIPPED": 2,
+        "DELIVERED": 5,
+        "CANCELLED": 1,
+        "RETURNED": 0
+      },
+      "topProducts": [
+        {
+          "productId": "prod_lawn_01",
+          "sku": "PK-LWN-GB-GRN",
+          "productName": "Gul-e-Bahar Unstitched Lawn 3-Piece",
+          "revenuePkr": 260000,
+          "unitsSold": 40
+        }
+      ],
+      "dailyRevenue": [
+        {
+          "date": "2026-07-28",
+          "revenuePkr": 180000,
+          "orderCount": 2
+        }
+      ],
+      "recentOrders": []
+    }
+  }
+  ```
+- **Error Response (`401 Unauthorized` / `403 Forbidden`):** Returned if the request lacks a valid session token or `ADMIN` RBAC claim.

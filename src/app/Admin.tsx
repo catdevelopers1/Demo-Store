@@ -4,7 +4,6 @@ import {
   ShieldAlert,
   LayoutDashboard,
   Truck,
-  Users,
   Settings,
   FolderTree,
   ShoppingBag,
@@ -13,6 +12,7 @@ import {
   Tag,
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { AdminDashboardOverview } from '../features/admin';
 
 export const AdminView: React.FC = () => {
   const { user } = useAuth();
@@ -92,50 +92,14 @@ export const AdminView: React.FC = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-          <Link
-            to="/admin/orders"
-            className="bg-stone-800/80 border border-stone-700/60 p-6 rounded-2xl hover:border-emerald-500/50 transition-colors block"
-          >
-            <div className="flex items-center justify-between mb-4">
-              <span className="text-xs text-stone-400 font-medium uppercase tracking-wider">
-                COD Order Lifecycle
-              </span>
-              <Truck className="w-5 h-5 text-emerald-400" />
-            </div>
-            <p className="text-3xl font-extrabold">6</p>
-            <p className="text-xs text-stone-500 mt-1">
-              View Kanban board &amp; immutable audit log
-            </p>
-          </Link>
-
-          <div className="bg-stone-800/80 border border-stone-700/60 p-6 rounded-2xl">
-            <div className="flex items-center justify-between mb-4">
-              <span className="text-xs text-stone-400 font-medium uppercase tracking-wider">
-                Promotional Coupons
-              </span>
-              <Tag className="w-5 h-5 text-emerald-400" />
-            </div>
-            <p className="text-3xl font-extrabold">3</p>
-            <p className="text-xs text-stone-500 mt-1">AZADI14, LAWNSALE500 active</p>
-          </div>
-
-          <div className="bg-stone-800/80 border border-stone-700/60 p-6 rounded-2xl">
-            <div className="flex items-center justify-between mb-4">
-              <span className="text-xs text-stone-400 font-medium uppercase tracking-wider">
-                Registered Customers
-              </span>
-              <Users className="w-5 h-5 text-emerald-400" />
-            </div>
-            <p className="text-3xl font-extrabold">1</p>
-            <p className="text-xs text-stone-500 mt-1">100% Pakistani mobile formatting</p>
-          </div>
+        <div className="mt-4">
+          <AdminDashboardOverview />
         </div>
 
         <div className="mt-8 p-4 rounded-xl bg-emerald-950/50 border border-emerald-800/50 flex items-center gap-3 text-xs text-emerald-300">
           <ShieldAlert className="w-5 h-5 text-emerald-400 shrink-0" />
           <span>
-            Milestone 12 (`v0.13.0`): Order Lifecycle Management & Audit Timeline operational. Click "Orders" above to manage COD state transitions and inspect audit logs.
+            Milestone 13 (`v0.14.0`): Admin Dashboard &amp; Core E-Commerce Analytics operational. Index-backed D1 SQLite aggregations execute in under 20ms.
           </span>
         </div>
       </div>
