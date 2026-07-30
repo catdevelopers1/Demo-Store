@@ -104,7 +104,11 @@ describe('Category Repository & Cache Integration', () => {
 
     const mockEnv: Env = {
       DB: { prepare: mockPrepare } as unknown as D1Database,
-      KV: {} as unknown as KVNamespace,
+      KV: {
+        get: vi.fn().mockResolvedValue(null),
+        put: vi.fn().mockResolvedValue(undefined),
+        delete: vi.fn().mockResolvedValue(undefined),
+      } as unknown as KVNamespace,
       BUCKET: {} as unknown as R2Bucket,
       ENVIRONMENT: 'development',
     };
