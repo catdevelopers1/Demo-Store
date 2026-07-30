@@ -19,27 +19,24 @@ export const Home: React.FC = () => {
   const { settings } = useSettings();
   const { products } = useProducts();
 
-  // Curate products into collection carousels
-  const lawnProducts = products.filter((p) =>
-    p.categoryName?.toLowerCase().includes('lawn')
+  // Curate products into official Khaadi collections
+  const unstitchedProducts = products.filter((p) =>
+    p.categoryName?.toUpperCase().includes('UNSTITCHED') || p.name.includes('Lawn') || p.name.includes('Khaddar')
   );
-  const khaddarProducts = products.filter((p) =>
-    p.categoryName?.toLowerCase().includes('khaddar')
-  );
-  const pretProducts = products.filter(
+  const readyToWearProducts = products.filter(
     (p) =>
-      p.categoryName?.toLowerCase().includes('ready') ||
-      p.categoryName?.toLowerCase().includes('pret') ||
-      p.categoryName?.toLowerCase().includes('formal')
+      p.categoryName?.toUpperCase().includes('READY TO WEAR') ||
+      p.name.includes('Kurta') ||
+      p.name.includes('Co-ord') ||
+      p.name.includes('Pret')
   );
-
+  const fabricsProducts = products.filter((p) =>
+    p.categoryName?.toUpperCase().includes('FABRICS') || p.name.includes('Cambric') || p.name.includes('Silk')
+  );
   const newArrivals = products.slice(0, 12);
-  const displayLawn = lawnProducts.length > 0 ? lawnProducts.slice(0, 12) : products.slice(12, 24);
-  const displayKhaddar =
-    khaddarProducts.length > 0
-      ? khaddarProducts.slice(0, 12)
-      : products.slice(24, 36);
-  const displayPret = pretProducts.length > 0 ? pretProducts.slice(0, 12) : products.slice(0, 12);
+  const displayUnstitched = unstitchedProducts.length > 0 ? unstitchedProducts.slice(0, 12) : products.slice(12, 24);
+  const displayReadyToWear = readyToWearProducts.length > 0 ? readyToWearProducts.slice(0, 12) : products.slice(0, 12);
+  const displayFabrics = fabricsProducts.length > 0 ? fabricsProducts.slice(0, 12) : products.slice(24, 36);
 
   return (
     <div className="space-y-16 pb-16 bg-white">
@@ -112,16 +109,16 @@ export const Home: React.FC = () => {
         <ProductCarousel
           title="NEW IN"
           products={newArrivals}
-          categorySlug="unstitched-lawn"
+          categorySlug="new-in"
         />
       </section>
 
-      {/* 4. Product Carousel 2: UNSTITCHED LAWN */}
+      {/* 4. Product Carousel 2: UNSTITCHED */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <ProductCarousel
-          title="UNSTITCHED LAWN"
-          products={displayLawn}
-          categorySlug="3-piece-lawn"
+          title="UNSTITCHED"
+          products={displayUnstitched}
+          categorySlug="unstitched"
         />
       </section>
 
@@ -129,17 +126,17 @@ export const Home: React.FC = () => {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <ProductCarousel
           title="READY TO WEAR"
-          products={displayPret}
+          products={displayReadyToWear}
           categorySlug="ready-to-wear"
         />
       </section>
 
-      {/* 6. Product Carousel 4: WINTER KHADDAR */}
+      {/* 6. Product Carousel 4: FABRICS */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <ProductCarousel
-          title="WINTER KHADDAR"
-          products={displayKhaddar}
-          categorySlug="winter-khaddar"
+          title="FABRICS"
+          products={displayFabrics}
+          categorySlug="fabrics"
         />
       </section>
 

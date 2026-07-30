@@ -175,7 +175,7 @@ export const ProductDetailView: React.FC = () => {
         <span>Back to Catalog</span>
       </Link>
 
-      <div className="bg-white rounded-3xl border border-stone-200 p-8 sm:p-12 shadow-sm grid grid-cols-1 lg:grid-cols-2 gap-12">
+      <div className="bg-white grid grid-cols-1 lg:grid-cols-2 gap-12 sm:gap-16 pt-4">
         {/* Left Side: Lookbook Image Gallery */}
         <div>
           <ProductImageGallery
