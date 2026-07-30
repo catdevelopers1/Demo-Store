@@ -10,21 +10,15 @@ export const ProductCatalogGrid: React.FC = () => {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <span className="text-[10px] bg-emerald-100 text-emerald-800 font-semibold px-2.5 py-0.5 rounded-full uppercase tracking-wider">
-            Cartesian Variant Engine Active
-          </span>
-          <h1 className="text-2xl font-bold text-stone-900 mt-1">
-            Pakistani Clothing Catalog
-          </h1>
-          <p className="text-xs text-stone-500 mt-0.5">
-            Explore unstitched lawn, winter khaddar, and luxury embroidered collections.
-          </p>
+          <h2 className="text-2xl sm:text-3xl font-serif font-extrabold text-stone-900 dark:text-white tracking-tight">
+            Complete Catalog
+          </h2>
         </div>
       </div>
 
       {loading && products.length === 0 ? (
         <div className="py-12 text-center text-xs text-stone-400">
-          Loading catalog items from Edge D1 database...
+          Loading catalog...
         </div>
       ) : products.length === 0 ? (
         <div className="py-12 bg-white rounded-2xl border border-stone-200 text-center p-8">

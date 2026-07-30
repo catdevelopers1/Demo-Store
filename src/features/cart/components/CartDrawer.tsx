@@ -116,7 +116,7 @@ export const CartDrawer: React.FC = () => {
             <div className="bg-amber-50 border-b border-amber-200 p-4 text-xs text-amber-900 space-y-1">
               <div className="font-bold flex items-center gap-1 text-amber-800">
                 <AlertTriangle className="w-4 h-4" />
-                <span>Inventory Ledger Notice:</span>
+                <span>Notice:</span>
               </div>
               <ul className="list-disc list-inside space-y-0.5 text-[11px]">
                 {warnings.map((warn, idx) => (

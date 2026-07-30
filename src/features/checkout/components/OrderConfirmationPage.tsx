@@ -92,7 +92,7 @@ export const OrderConfirmationPage: React.FC = () => {
         </h1>
 
         <p className="text-sm text-stone-600 mt-2 max-w-md mx-auto">
-          Your Executive Order Number is{' '}
+          Your Order Number is{' '}
           <span className="font-mono font-bold text-emerald-800">{order.orderNumber}</span>. Please keep your cash ready at the time of delivery.
         </p>
 
@@ -109,7 +109,7 @@ export const OrderConfirmationPage: React.FC = () => {
             <div className="bg-emerald-50 border border-emerald-200 text-emerald-900 px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2">
               <Truck className="w-4 h-4 text-emerald-700 shrink-0" />
               <span>
-                Status: CONFIRMED — Your parcel is being prepared for nationwide Pakistani dispatch.
+                Status: CONFIRMED — Your parcel is being prepared for dispatch.
               </span>
             </div>
           )}

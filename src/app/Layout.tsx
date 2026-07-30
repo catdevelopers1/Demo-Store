@@ -20,11 +20,9 @@ export const Layout: React.FC = () => {
       <div className="bg-emerald-900 text-emerald-50 text-xs py-2 px-4 text-center font-medium flex items-center justify-center gap-4">
         <span className="flex items-center gap-1.5">
           <Truck className="w-3.5 h-3.5" />
-          Free Cash on Delivery (COD) across Pakistan on orders over PKR{' '}
+          Free Cash on Delivery across Pakistan on orders over PKR{' '}
           {settings.freeShippingThresholdPkr.toLocaleString()}
         </span>
-        <span className="hidden sm:inline">|</span>
-        <span className="hidden sm:inline text-emerald-300">COD Engine v1.0</span>
         <span className="hidden sm:inline">|</span>
         <span className="hidden sm:flex items-center gap-1">
           <Phone className="w-3.5 h-3.5" />
@@ -161,21 +159,21 @@ export const Layout: React.FC = () => {
             <ul className="space-y-2 text-xs text-stone-400">
               <li>Privacy Policy</li>
               <li>Terms of Service</li>
-              <li>Turnstile Security</li>
-              <li>COD Verification rules</li>
+              <li>Delivery Information</li>
+              <li>Return &amp; Exchange Policy</li>
             </ul>
           </div>
           <div>
-            <h3 className="text-white font-semibold mb-3">Secure & Verified</h3>
+            <h3 className="text-white font-semibold mb-3">Secure &amp; Verified</h3>
             <div className="flex items-center gap-2 text-xs text-stone-400">
               <ShieldCheck className="w-4 h-4 text-emerald-400" />
-              <span>Protected by Cloudflare Edge & Turnstile Bot Defense</span>
+              <span>100% Secure Checkout &amp; Original Fabrics</span>
             </div>
           </div>
         </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 pt-8 border-t border-stone-800 text-xs text-stone-500 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p>© 2026 {settings.brandName}. Open-Source Reusable Commerce Framework.</p>
-          <p>Version v1.0.0 — Reusable Pakistani Commerce Framework</p>
+          <p>© 2026 {settings.brandName}. All rights reserved.</p>
+          <p>Designed for Pakistan.</p>
         </div>
       </footer>
     </div>

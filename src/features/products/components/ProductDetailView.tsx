@@ -8,7 +8,6 @@ import type { ProductVariant } from '../../variants/types';
 import { formatPkr } from '../../variants/utils';
 import { SeoHead } from '../../seo';
 import {
-  Truck,
   ShieldCheck,
   Tag,
   Check,
@@ -173,26 +172,16 @@ export const ProductDetailView: React.FC = () => {
         className="inline-flex items-center gap-1.5 text-xs font-semibold text-stone-600 hover:text-emerald-800 mb-6 transition-colors"
       >
         <ArrowLeft className="w-4 h-4" />
-        <span>Back to Pakistani Catalog</span>
+        <span>Back to Catalog</span>
       </Link>
 
       <div className="bg-white rounded-3xl border border-stone-200 p-8 sm:p-12 shadow-sm grid grid-cols-1 lg:grid-cols-2 gap-12">
-        {/* Left Side: Interactive R2 Image Gallery */}
-        <div className="space-y-4">
+        {/* Left Side: Lookbook Image Gallery */}
+        <div>
           <ProductImageGallery
             productId={product.id}
             categoryName={product.categoryName ?? undefined}
           />
-
-          <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-xs text-emerald-900 flex items-center gap-3">
-            <Truck className="w-5 h-5 text-emerald-700 shrink-0" />
-            <div>
-              <p className="font-semibold">Cash on Delivery (COD) Verified SKU</p>
-              <p className="text-emerald-700 text-[11px]">
-                Orders over PKR 5,000 qualify for free COD shipping across Pakistan.
-              </p>
-            </div>
-          </div>
         </div>
 
         {/* Right Side: Options, SKU, Price, Stock Status & Actions */}
@@ -215,7 +204,7 @@ export const ProductDetailView: React.FC = () => {
               ) : (
                 <span className="inline-flex items-center gap-1 text-[11px] bg-emerald-100 text-emerald-800 font-semibold px-2.5 py-0.5 rounded-full">
                   <Check className="w-3.5 h-3.5" />
-                  <span>In Stock & Ready for COD</span>
+                  <span>In Stock</span>
                 </span>
               )}
             </div>
@@ -298,9 +287,9 @@ export const ProductDetailView: React.FC = () => {
             <div className="flex items-center justify-between text-xs text-stone-500 pt-2">
               <span className="flex items-center gap-1">
                 <ShieldCheck className="w-4 h-4 text-emerald-600" />
-                100% Pakistani Cash on Delivery Security
+                100% Original &amp; Secure COD Checkout
               </span>
-              <span>Milestone 9 (`v0.10.0`)</span>
+              <span>7-Day Returns</span>
             </div>
           </div>
         </div>

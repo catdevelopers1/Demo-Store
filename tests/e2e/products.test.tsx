@@ -25,7 +25,7 @@ describe('Milestone 4 Storefront Product Catalog & Variant Engine E2E Test', () 
       </AuthProvider>
     );
 
-    const heading = screen.getByRole('heading', { name: /Pakistani Clothing Catalog/i });
+    const heading = screen.getByRole('heading', { name: /Complete Catalog|Pakistani Clothing Catalog/i });
     expect(heading).toBeDefined();
   });
 

@@ -12,10 +12,7 @@ export const CategoryGrid: React.FC = () => {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <span className="text-[10px] bg-emerald-100 text-emerald-800 font-semibold px-2.5 py-0.5 rounded-full uppercase tracking-wider">
-            100% Configurable Taxonomy
-          </span>
-          <h2 className="text-xl font-bold text-stone-900 mt-1">Pakistani Fashion Collections</h2>
+          <h2 className="text-xl font-bold text-stone-900">Pakistani Fashion Collections</h2>
         </div>
         <Link
           to="/categories"
