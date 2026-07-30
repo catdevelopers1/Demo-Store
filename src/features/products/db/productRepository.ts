@@ -13,6 +13,7 @@ export interface ProductRow {
   category_id: string | null;
   category_name?: string | null;
   is_active: number;
+  primary_image_url?: string | null;
   seo_title: string | null;
   seo_description: string | null;
   created_at: string;
@@ -58,6 +59,7 @@ function mapRowToProduct(row: ProductRow): Product {
     categoryId: row.category_id,
     categoryName: row.category_name,
     isActive: Boolean(row.is_active),
+    primaryImageUrl: row.primary_image_url ?? null,
     seoTitle: row.seo_title,
     seoDescription: row.seo_description,
     createdAt: row.created_at,
@@ -75,7 +77,8 @@ export async function getProducts(
   const db = getDb(env);
 
   let sql = `
-    SELECT p.id, p.name, p.slug, p.description, p.base_price_pkr, p.category_id, c.name as category_name, p.is_active, p.seo_title, p.seo_description, p.created_at, p.updated_at
+    SELECT p.id, p.name, p.slug, p.description, p.base_price_pkr, p.category_id, c.name as category_name, p.is_active, p.seo_title, p.seo_description, p.created_at, p.updated_at,
+           (SELECT url FROM product_images WHERE product_id = p.id ORDER BY is_primary DESC, sort_order ASC LIMIT 1) as primary_image_url
     FROM products p
     LEFT JOIN categories c ON p.category_id = c.id
     WHERE p.is_active = 1
@@ -121,7 +124,8 @@ export async function getProductBySlug(
   const db = getDb(env);
 
   const productRow = await db.first<ProductRow>(
-    `SELECT p.id, p.name, p.slug, p.description, p.base_price_pkr, p.category_id, c.name as category_name, p.is_active, p.seo_title, p.seo_description, p.created_at, p.updated_at
+    `SELECT p.id, p.name, p.slug, p.description, p.base_price_pkr, p.category_id, c.name as category_name, p.is_active, p.seo_title, p.seo_description, p.created_at, p.updated_at,
+            (SELECT url FROM product_images WHERE product_id = p.id ORDER BY is_primary DESC, sort_order ASC LIMIT 1) as primary_image_url
      FROM products p
      LEFT JOIN categories c ON p.category_id = c.id
      WHERE p.slug = ?`,

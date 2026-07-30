@@ -1,10 +1,9 @@
 import React from 'react';
 import { Link, Outlet } from 'react-router-dom';
-import { ShoppingBag, Phone, ShieldCheck, Truck, User, Shield, LogOut } from 'lucide-react';
+import { ShoppingBag, Phone, ShieldCheck, Truck, User, Shield, LogOut, Search as SearchIcon } from 'lucide-react';
 import { useAuth } from '../features/authentication';
 import { useSettings } from '../features/settings';
 import { CategoryNavbarMenu } from '../features/categories';
-import { StorefrontSearchBar } from '../features/search';
 import { useCart, CartDrawer } from '../features/cart';
 
 export const Layout: React.FC = () => {
@@ -25,6 +24,8 @@ export const Layout: React.FC = () => {
           {settings.freeShippingThresholdPkr.toLocaleString()}
         </span>
         <span className="hidden sm:inline">|</span>
+        <span className="hidden sm:inline text-emerald-300">COD Engine v1.0</span>
+        <span className="hidden sm:inline">|</span>
         <span className="hidden sm:flex items-center gap-1">
           <Phone className="w-3.5 h-3.5" />
           WhatsApp Support: {settings.whatsappPk}
@@ -35,60 +36,69 @@ export const Layout: React.FC = () => {
       <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-stone-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
           <Link to="/" className="flex items-center gap-2 shrink-0">
-            <span className="text-xl font-bold tracking-tight text-stone-900 uppercase">
+            <span className="text-xl font-serif font-extrabold tracking-wider text-stone-900 uppercase">
               {settings.brandName}
-            </span>
-            <span className="text-[10px] bg-emerald-100 text-emerald-800 font-semibold px-2 py-0.5 rounded-full uppercase tracking-wider hidden sm:inline">
-              COD Engine v1.0
             </span>
           </Link>
 
-          {/* FTS5 Storefront Search Bar */}
-          <div className="flex-1 max-w-sm hidden lg:block">
-            <StorefrontSearchBar />
-          </div>
-
           {/* Dynamic Database/KV Driven Category Navigation Menu */}
           <nav className="hidden md:flex items-center gap-6">
+            <Link
+              to="/products"
+              className="text-sm font-semibold text-stone-700 hover:text-emerald-800 transition-colors py-2"
+            >
+              New Arrivals
+            </Link>
+            <CategoryNavbarMenu />
             <Link
               to="/search"
               className="text-sm font-semibold text-stone-700 hover:text-emerald-800 transition-colors py-2"
             >
               Discover
             </Link>
-            <Link
-              to="/track-order"
-              className="text-sm font-semibold text-stone-700 hover:text-emerald-800 transition-colors py-2"
-            >
-              Track Order
-            </Link>
-            <CategoryNavbarMenu />
             {user?.role === 'ADMIN' && (
               <Link
                 to="/admin"
                 className="flex items-center gap-1 text-emerald-800 font-bold bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-200 hover:bg-emerald-100 transition-colors text-xs"
               >
                 <Shield className="w-3.5 h-3.5" />
-                <span>Admin Panel</span>
+                <span>Admin</span>
               </Link>
             )}
           </nav>
 
-          <div className="flex items-center gap-4 shrink-0">
+          {/* Minimalist Fashion Icon Actions */}
+          <div className="flex items-center gap-2 shrink-0">
+            <Link
+              to="/search"
+              aria-label="Search Catalog"
+              className="p-2 text-stone-700 hover:text-emerald-800 transition-colors rounded-full hover:bg-stone-100"
+            >
+              <SearchIcon className="w-5 h-5" />
+            </Link>
+
+            <Link
+              to="/track-order"
+              aria-label="Track Order"
+              className="p-2 text-stone-700 hover:text-emerald-800 transition-colors rounded-full hover:bg-stone-100"
+            >
+              <Truck className="w-5 h-5" />
+            </Link>
+
             {user ? (
-              <div className="flex items-center gap-2">
+              <div className="flex items-center">
                 <Link
                   to="/account"
-                  className="flex items-center gap-1.5 text-xs font-semibold text-stone-700 hover:text-emerald-800 bg-stone-100 px-3 py-1.5 rounded-xl transition-colors"
+                  aria-label="Customer Account"
+                  className="p-2 text-stone-700 hover:text-emerald-800 transition-colors rounded-full hover:bg-stone-100"
                 >
-                  <User className="w-3.5 h-3.5 text-emerald-800" />
-                  <span className="max-w-[120px] truncate">{user.email}</span>
+                  <User className="w-5 h-5" />
                 </Link>
                 <button
                   type="button"
                   onClick={() => void logout()}
                   aria-label="Sign Out"
-                  className="p-1.5 text-stone-500 hover:text-red-700 transition-colors rounded-lg hover:bg-stone-100"
+                  className="p-2 text-stone-500 hover:text-red-700 transition-colors rounded-full hover:bg-stone-100"
                 >
                   <LogOut className="w-4 h-4" />
                 </button>
@@ -96,9 +106,10 @@ export const Layout: React.FC = () => {
             ) : (
               <Link
                 to="/login"
-                className="text-xs font-semibold text-white bg-emerald-800 hover:bg-emerald-700 px-3.5 py-2 rounded-xl transition-colors shadow-sm"
+                aria-label="Sign In or Account"
+                className="p-2 text-stone-700 hover:text-emerald-800 transition-colors rounded-full hover:bg-stone-100"
               >
-                Sign In / Register
+                <User className="w-5 h-5" />
               </Link>
             )}
 

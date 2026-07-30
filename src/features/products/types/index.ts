@@ -9,6 +9,7 @@ export interface Product {
   categoryId?: string | null;
   categoryName?: string | null;
   isActive: boolean;
+  primaryImageUrl?: string | null;
   seoTitle?: string | null;
   seoDescription?: string | null;
   createdAt?: string;
