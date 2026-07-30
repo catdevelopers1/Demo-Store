@@ -23,6 +23,7 @@ import {
   STATUS_DESCRIPTIONS,
 } from '../utils/stateMachine';
 import { formatPakistaniPhoneDisplay } from '../utils/phone';
+import { SeoHead } from '../../seo';
 
 function getStatusIcon(status: OrderStatus) {
   switch (status) {
@@ -119,6 +120,11 @@ export const OrderTrackingPage: React.FC = () => {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-10 sm:px-6 lg:px-8">
+      <SeoHead
+        title="Track COD Order — Pakistani Apparel Store"
+        description="Track your Cash on Delivery (COD) clothing order status and delivery timeline with mobile number verification."
+        canonicalUrl="https://pakistani-commerce.edge.app/track-order"
+      />
       {/* Page Header */}
       <div className="text-center mb-8">
         <h1 className="text-3xl font-bold text-gray-900 dark:text-white tracking-tight">

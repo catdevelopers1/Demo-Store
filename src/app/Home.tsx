@@ -4,12 +4,26 @@ import { Link } from 'react-router-dom';
 import { useSettings } from '../features/settings';
 import { CategoryGrid } from '../features/categories';
 import { ProductCatalogGrid } from '../features/products';
+import { SeoHead } from '../features/seo';
 
 export const Home: React.FC = () => {
   const { settings } = useSettings();
 
   return (
     <div className="space-y-16 py-12">
+      <SeoHead
+        title={`${settings.brandName} | ${settings.brandTagline}`}
+        description="Enterprise-grade Pakistani clothing brand storefront optimized for Cash on Delivery (COD), fast FTS5 search, and province shipping rules."
+        canonicalUrl="https://pakistani-commerce.edge.app/"
+        ogType="website"
+        jsonLd={{
+          '@context': 'https://schema.org',
+          '@type': 'WebSite',
+          name: settings.brandName,
+          url: 'https://pakistani-commerce.edge.app/',
+          description: settings.brandTagline,
+        }}
+      />
       {/* Hero Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-gradient-to-r from-stone-900 to-stone-800 rounded-3xl text-white p-8 sm:p-16 flex flex-col items-start justify-center shadow-xl relative overflow-hidden">
@@ -102,14 +116,14 @@ export const Home: React.FC = () => {
         <div className="bg-stone-100 border border-stone-200 rounded-2xl p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
             <h3 className="font-semibold text-stone-900 text-sm">
-              Milestone 12 (`v0.13.0`): Order Lifecycle Management &amp; Audit Timeline Complete
+              Milestone 14 (`v1.0.0`): Version 1 Production Hardening &amp; Stable Release Complete
             </h3>
             <p className="text-xs text-stone-600 mt-1">
-              COD state machine, mobile-verified customer tracking, and atomic cancellation restock operational.
+              Edge SEO sitemaps, CSP security headers, and ACID COD transactions certified.
             </p>
           </div>
           <span className="bg-emerald-800 text-white text-xs font-semibold px-3 py-1.5 rounded-lg">
-            Ready for Milestone 13
+            Version 1.0.0 Certified
           </span>
         </div>
       </section>

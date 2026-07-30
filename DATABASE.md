@@ -269,3 +269,14 @@ If any statement fails (e.g., insufficient stock constraint), the entire batch t
 3. **Migration `0012_analytics.sql`:**
    - Establishes performance indexes (`idx_orders_status_created`, `idx_order_items_order_total`).
    - Seeds additional historical COD orders (`#PK-10007` through `#PK-10009`) with realistic date distributions to populate daily revenue trend charts.
+
+---
+
+## 8. Version 1.0.0 Production Hardening & ACID Verification Summary (`v1.0.0`)
+
+1. **SQL Injection Immunity:**
+   - 100% of D1 database operations across all 12 repositories use parameterized prepared statements (`this.db.prepare(sql).bind(...params)`). Zero dynamic SQL concatenation is permitted.
+2. **ACID Concurrency Guarantee:**
+   - All multi-table mutations (e.g. COD order placement, inventory reservation, stock release on cancellation, category tree modification, product image cover toggling) execute within single Cloudflare D1 batch transactions (`db.batch()`).
+3. **Dynamic SEO Sitemap Querying:**
+   - Active collections (`SELECT slug, updated_at FROM categories WHERE is_active = 1`) and products (`SELECT slug, updated_at FROM products WHERE is_active = 1`) are queried dynamically by `generateSitemapXml` to ensure instant sitemap indexing without hardcoding.

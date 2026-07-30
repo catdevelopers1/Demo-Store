@@ -53,6 +53,7 @@ Every milestone must satisfy the following security controls before PR merge:
 - [ ] **SQL Injection Prevention:** 100% prepared statements in D1 SQL queries; zero string concatenation.
 - [ ] **XSS Prevention:** React 19 auto-escaping enabled; zero unsanitized `dangerouslySetInnerHTML`.
 - [ ] **CSRF Protection:** SameSite=Strict HttpOnly cookies and custom API headers enforced.
+- [ ] **Enterprise Security Headers:** Verify `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`, `HSTS`, and `CSP` headers via `attachSecurityHeaders()`.
 - [ ] **Bot Defense:** Turnstile token verification required on `/auth/*` and `/checkout/cod`.
 - [ ] **Secret Management:** Secrets configured via Wrangler CLI (`wrangler secret put`); zero plaintext secrets in git.
 

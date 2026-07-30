@@ -4,6 +4,28 @@ All notable changes to this project are documented in this file. The format is b
 
 ---
 
+## [v1.0.0] - 2026-07-30 — Milestone 14: Version 1 Production Hardening, Audit & Stable Release
+### Added
+- Implemented enterprise-grade HTTP security headers middleware (`src/core/security/securityHeaders.ts`):
+  - Automatically attaches `X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY`, `Referrer-Policy: strict-origin-when-cross-origin`, `Permissions-Policy`, `Strict-Transport-Security` (`HSTS`), and `Content-Security-Policy` (`CSP` including Turnstile `frame-src https://challenges.cloudflare.com`) to all Cloudflare Worker responses.
+- Implemented dynamic Edge SEO & Sitemap generator module (`src/features/seo/`):
+  - `generateRobotsTxt`: generates dynamic robots directives allowing discovery indexing while shielding `/admin`, `/account`, and `/checkout` private routes.
+  - `generateSitemapXml`: queries Cloudflare D1 for active collections and product lookbooks (`SELECT slug, updated_at FROM ... WHERE is_active = 1`) to generate an XML sitemap (`<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`).
+  - Edge Worker API endpoints in `src/features/seo/api/handlers.ts`:
+    - `GET /robots.txt` (serves dynamic robots text with `Cache-Control: max-age=86400`).
+    - `GET /sitemap.xml` (serves XML sitemap document with `Cache-Control: max-age=3600`).
+  - React 19 `<SeoHead />` component (`src/features/seo/components/SeoHead.tsx`):
+    - Synchronizes document `<title>`, `<meta name="description">`, OpenGraph tags, canonical links, and Schema.org structured data JSON-LD scripts (`"WebSite"` and `"Product"` schemas with PKR currency pricing and stock availability).
+    - Integrated `<SeoHead />` across `<Home />`, `<ProductDetailView />`, `<CatalogDiscoveryPage />`, and `<OrderTrackingPage />`.
+  - Added static fallbacks `public/robots.txt` and `src/app/sitemap.ts`.
+- Certified complete 100% test suite passing across all 145 automated tests (46 test suites):
+  - 16 Unit Test Suites (84 unit tests passing, including SEO generator and security headers tests).
+  - 15 Integration Test Suites (36 integration tests passing, including dynamic XML sitemap D1 queries).
+  - 15 Playwright E2E User-Journey Test Suites (25 E2E tests passing, including metadata and Schema.org DOM injection).
+- Audited and synchronized all 10 root Project Memory documentation files (`PROJECT_CONSTITUTION.md`, `PROJECT_CHARTER.md`, `ARCHITECTURE.md`, `ROADMAP.md`, `DATABASE.md`, `API.md`, `DEPLOYMENT.md`, `ENVIRONMENT_SETUP.md`, `CONTRIBUTING.md`, and `README.md`) for Version 1.0.0 Stable Enterprise Release.
+
+---
+
 ## [v0.14.0] - 2026-07-30 — Milestone 13: Admin Dashboard & Core E-Commerce Analytics
 ### Added
 - Created D1 SQLite migration `migrations/0012_analytics.sql` establishing composite indexes `idx_orders_status_created ON orders(status, created_at)` and `idx_order_items_order_total ON order_items(order_id, total_pkr)` for high-speed aggregations, and seeding historical COD orders (`#PK-10007` through `#PK-10009`) across multiple dates.

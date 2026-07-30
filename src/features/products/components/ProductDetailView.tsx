@@ -6,6 +6,7 @@ import { useCart } from '../../cart';
 import type { ProductWithVariants } from '../types';
 import type { ProductVariant } from '../../variants/types';
 import { formatPkr } from '../../variants/utils';
+import { SeoHead } from '../../seo';
 import {
   Truck,
   ShieldCheck,
@@ -143,6 +144,30 @@ export const ProductDetailView: React.FC = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <SeoHead
+        title={`${product.name} — Pakistani COD Fashion`}
+        description={
+          product.description ??
+          `Buy ${product.name} online with Cash on Delivery across Pakistan.`
+        }
+        canonicalUrl={`https://pakistani-commerce.edge.app/product/${product.slug}`}
+        ogType="product"
+        jsonLd={{
+          '@context': 'https://schema.org',
+          '@type': 'Product',
+          name: product.name,
+          description: product.description ?? product.name,
+          sku: activeSku,
+          offers: {
+            '@type': 'Offer',
+            priceCurrency: 'PKR',
+            price: effectivePricePkr,
+            availability: isOutOfStock
+              ? 'https://schema.org/OutOfStock'
+              : 'https://schema.org/InStock',
+          },
+        }}
+      />
       <Link
         to="/products"
         className="inline-flex items-center gap-1.5 text-xs font-semibold text-stone-600 hover:text-emerald-800 mb-6 transition-colors"

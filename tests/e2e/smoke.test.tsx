@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import '@testing-library/dom';
 import { AppRouter } from '../../src/app/Router';
 
-describe('Milestone 0-12 Framework Storefront E2E Hydration Test', () => {
+describe('Milestone 0-14 Framework Storefront E2E Hydration Test', () => {
   it('hydrates the homepage and displays Pakistani Clothing brand branding', async () => {
     render(<AppRouter />);
 
@@ -12,7 +12,7 @@ describe('Milestone 0-12 Framework Storefront E2E Hydration Test', () => {
     expect(topBarText).toBeDefined();
 
     // Verify version badge
-    const versionBadge = await screen.findByText(/COD Engine v0\.(1|2|3|4|5|6|7|8|9|10|11|12|13)/i);
+    const versionBadge = await screen.findByText(/COD Engine (v0\.(1|2|3|4|5|6|7|8|9|10|11|12|13|14)|v1\.0)/i);
     expect(versionBadge).toBeDefined();
 
     // Verify hero section heading using role
@@ -22,7 +22,7 @@ describe('Milestone 0-12 Framework Storefront E2E Hydration Test', () => {
     expect(heroTitle).toBeDefined();
 
     // Verify Milestone completion banner
-    const milestoneBanner = await screen.findByText(/Milestone (0|1|2|3|4|5|6|7|8|9|10|11|12) \(`v0\.(1|2|3|4|5|6|7|8|9|10|11|12|13)\.0`\)/i);
+    const milestoneBanner = await screen.findByText(/Milestone (0|1|2|3|4|5|6|7|8|9|10|11|12|13|14) \((`v0\.(1|2|3|4|5|6|7|8|9|10|11|12|13|14)\.0`|`v1\.0\.0`)\)/i);
     expect(milestoneBanner).toBeDefined();
   });
 });

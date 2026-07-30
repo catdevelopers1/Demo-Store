@@ -12,6 +12,7 @@ import {
   ChevronRight,
   Package,
 } from 'lucide-react';
+import { SeoHead } from '../../seo';
 import type { SearchSortOrder } from '../types';
 
 export const CatalogDiscoveryPage: React.FC = () => {
@@ -112,6 +113,11 @@ export const CatalogDiscoveryPage: React.FC = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <SeoHead
+        title="Discover Pakistani Clothing Collections | COD Fashion"
+        description="Search and filter Pakistani clothing collections, lawn suits, khaddar, and unstitched fabrics with FTS5 instant search."
+        canonicalUrl="https://pakistani-commerce.edge.app/search"
+      />
       {/* Header & Main Search Bar */}
       <div className="bg-white rounded-3xl border border-stone-200 p-8 shadow-sm mb-8">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">

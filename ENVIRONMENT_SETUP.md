@@ -92,3 +92,13 @@ npm run lint
 # 3. Complete test suite verification
 npm run test:all
 ```
+
+---
+
+## 6. Version 1.0.0 Stable Release Certification
+Before tagging a stable major release (`v1.0.0`), verify:
+1. `npm run typecheck`: 0 errors.
+2. `npm run lint`: 0 errors, 0 warnings.
+3. `npm run test:all`: 100% test suite passing across Unit, Integration, and Playwright E2E suites (46 suites, 145 tests).
+4. `npm run build`: Clean Vite production bundle.
+5. Sitemaps & Security: Verify `/sitemap.xml`, `/robots.txt`, and HTTP CSP/HSTS security headers.

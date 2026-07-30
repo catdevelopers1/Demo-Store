@@ -63,39 +63,48 @@ import {
   handleUpdateOrderStatus,
 } from '../features/orders/api';
 import { handleGetAnalyticsOverview } from '../features/analytics/api';
+import { handleGetRobotsTxt, handleGetSitemapXml } from '../features/seo/api';
+import { attachSecurityHeaders } from '../core/security';
 
 /**
  * Cloudflare Worker Edge fetch handler for the commerce framework
  */
-export default {
-  async fetch(request: Request, env: Env, _ctx: ExecutionContext): Promise<Response> {
-    const url = new URL(request.url);
+async function handleWorkerRequest(request: Request, env: Env): Promise<Response> {
+  const url = new URL(request.url);
 
-    // Handle CORS preflight requests
-    if (request.method === 'OPTIONS') {
-      return new Response(null, {
-        status: 204,
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Methods': 'GET, POST, PUT, PATCH, DELETE, OPTIONS',
-          'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With',
-          'Access-Control-Max-Age': '86400',
-        },
-      });
+  // Handle CORS preflight requests
+  if (request.method === 'OPTIONS') {
+    return new Response(null, {
+      status: 204,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, PATCH, DELETE, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With',
+        'Access-Control-Max-Age': '86400',
+      },
+    });
+  }
+
+  try {
+    // Dynamic SEO edge endpoints (Milestone 14 - v1.0.0)
+    if (url.pathname === '/robots.txt' && request.method === 'GET') {
+      return await handleGetRobotsTxt(request, env);
+    }
+    if (url.pathname === '/sitemap.xml' && request.method === 'GET') {
+      return await handleGetSitemapXml(request, env);
     }
 
-    try {
-      // Health check endpoint
-      if (url.pathname === '/api/v1/health') {
-        const isDbConfigured = Boolean(env.DB);
-        return createSuccessResponse({
-          status: 'healthy',
-          version: '0.14.0',
-          edge: 'Cloudflare Workers',
-          dbConfigured: isDbConfigured,
-          timestamp: new Date().toISOString(),
-        });
-      }
+    // Health check endpoint
+    if (url.pathname === '/api/v1/health') {
+      const isDbConfigured = Boolean(env.DB);
+      return createSuccessResponse({
+        status: 'healthy',
+        version: '1.0.0',
+        edge: 'Cloudflare Workers',
+        dbConfigured: isDbConfigured,
+        timestamp: new Date().toISOString(),
+      });
+    }
 
       // Check database connection endpoint
       if (url.pathname === '/api/v1/db-check' && request.method === 'GET') {
@@ -292,12 +301,25 @@ export default {
       }
 
       // Fallback for static assets or unsupported routes
-      return new Response('Pakistani Commerce Framework Edge Backend v0.14.0', {
+      return new Response('Pakistani Commerce Framework Edge Backend v1.0.0', {
         status: 200,
         headers: { 'Content-Type': 'text/plain; charset=utf-8' },
       });
     } catch (err) {
       return handleApiError(err);
     }
+}
+
+/**
+ * Cloudflare Worker Edge fetch handler with enterprise security header hardening
+ */
+export default {
+  async fetch(
+    request: Request,
+    env: Env,
+    _ctx: ExecutionContext
+  ): Promise<Response> {
+    const response = await handleWorkerRequest(request, env);
+    return attachSecurityHeaders(response);
   },
 };

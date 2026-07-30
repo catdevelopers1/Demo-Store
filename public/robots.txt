@@ -1,0 +1,23 @@
+# Robots.txt for Reusable Pakistani Clothing Commerce Framework (Static Fallback)
+User-agent: *
+Allow: /
+Allow: /categories
+Allow: /products
+Allow: /product/*
+Allow: /search
+Allow: /track-order
+
+# Protect private checkout, admin, and customer account routes
+Disallow: /admin
+Disallow: /admin/*
+Disallow: /account
+Disallow: /account/*
+Disallow: /checkout
+Disallow: /api/*
+
+# Allow public discovery API endpoints for search engine indexing
+Allow: /api/v1/products
+Allow: /api/v1/categories
+Allow: /api/v1/search
+
+Sitemap: https://pakistani-commerce.edge.app/sitemap.xml

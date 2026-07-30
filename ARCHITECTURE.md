@@ -222,6 +222,8 @@ No feature is considered complete without passing all five mandatory test tiers:
 - **SQL Injection Prevention:** Exclusive use of D1 prepared statements with parameter binding; zero raw SQL string concatenation.
 - **XSS Prevention:** React 19 auto-escaping and strict Content Security Policy (CSP) headers.
 - **CSRF Protection:** SameSite=Strict HttpOnly cookies + mandatory custom headers on API mutations.
+- **Enterprise Security Headers (`securityHeaders.ts`):** Automatically attaches `X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY`, `Referrer-Policy`, `Strict-Transport-Security`, and edge `Content-Security-Policy` to every Worker response.
+- **Turnstile Bot Defense:** Protects public checkout, authentication, and registration against automated spam checkouts.
 - **Secret Management:** Sensitive credentials stored via `wrangler secret put`; zero plaintext secrets in code or git history.
 
 ---

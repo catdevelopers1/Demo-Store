@@ -126,3 +126,20 @@ npm run build
 # Deploy output to Cloudflare Pages production
 npx wrangler pages deploy dist --project-name=pakistani-commerce-framework
 ```
+
+---
+
+## 6. Production SEO, Security Headers, and Sitemap Certification (`v1.0.0`)
+
+### 6.1 Enterprise HTTP Security Headers
+Every Cloudflare Worker Edge response automatically includes:
+- `X-Content-Type-Options: nosniff`
+- `X-Frame-Options: DENY`
+- `Referrer-Policy: strict-origin-when-cross-origin`
+- `Permissions-Policy: camera=(), microphone=(), geolocation=()`
+- `Strict-Transport-Security: max-age=31536000; includeSubDomains; preload`
+- `Content-Security-Policy: default-src 'self' https: data: 'unsafe-inline' 'unsafe-eval'; frame-src 'self' https://challenges.cloudflare.com; connect-src 'self' https:`
+
+### 6.2 Edge SEO Sitemaps & Robots.txt
+- `GET /robots.txt`: Serves dynamic robots rules with sitemap link and protected checkout/admin exclusions.
+- `GET /sitemap.xml`: Serves dynamic XML sitemap generated live from Cloudflare D1 categories and products (`SELECT slug, updated_at FROM ... WHERE is_active = 1`).

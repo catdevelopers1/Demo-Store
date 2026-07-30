@@ -839,3 +839,15 @@ Public endpoint for customers or guests to track COD order progress and view the
   }
   ```
 - **Error Response (`401 Unauthorized` / `403 Forbidden`):** Returned if the request lacks a valid session token or `ADMIN` RBAC claim.
+
+---
+
+## 17. Edge SEO, Sitemap, and Robots.txt Endpoints (`/sitemap.xml`, `/robots.txt`) — [Milestone 14 - v1.0.0]
+
+### 17.1 Edge Robots.txt (`GET /robots.txt`)
+Public edge endpoint serving dynamic robots rules directing crawlers to allow discovery routes, disallow private checkout/account/admin paths, and reference the dynamic XML sitemap.
+- **Success Response (`200 OK`):** Serves plaintext with `Content-Type: text/plain; charset=utf-8` and `Cache-Control: public, max-age=86400, s-maxage=86400`.
+
+### 17.2 Dynamic Edge XML Sitemap (`GET /sitemap.xml`)
+Public edge endpoint dynamically querying active D1 categories (`SELECT slug, updated_at FROM categories WHERE is_active = 1`) and products (`SELECT slug, updated_at FROM products WHERE is_active = 1`) to generate an XML sitemap (`<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`).
+- **Success Response (`200 OK`):** Serves XML document with `Content-Type: application/xml; charset=utf-8` and `Cache-Control: public, max-age=3600, s-maxage=3600`.
