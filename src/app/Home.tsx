@@ -1,13 +1,45 @@
 import React from 'react';
-import { Truck, ShieldCheck, Zap, ShoppingBag, Search as SearchIcon, RefreshCw, Sparkles } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import {
+  Truck,
+  ShieldCheck,
+  Zap,
+  RefreshCw,
+} from 'lucide-react';
 import { useSettings } from '../features/settings';
 import { CategoryGrid } from '../features/categories';
-import { ProductCatalogGrid } from '../features/products';
+import {
+  ProductCatalogGrid,
+  HeroCarousel,
+  ProductCarousel,
+  useProducts,
+} from '../features/products';
 import { SeoHead } from '../features/seo';
 
 export const Home: React.FC = () => {
   const { settings } = useSettings();
+  const { products } = useProducts();
+
+  // Curate products into collection carousels
+  const lawnProducts = products.filter((p) =>
+    p.categoryName?.toLowerCase().includes('lawn')
+  );
+  const khaddarProducts = products.filter((p) =>
+    p.categoryName?.toLowerCase().includes('khaddar')
+  );
+  const pretProducts = products.filter(
+    (p) =>
+      p.categoryName?.toLowerCase().includes('ready') ||
+      p.categoryName?.toLowerCase().includes('pret') ||
+      p.categoryName?.toLowerCase().includes('formal')
+  );
+
+  const newArrivals = products.slice(0, 12);
+  const displayLawn = lawnProducts.length > 0 ? lawnProducts.slice(0, 12) : products.slice(12, 24);
+  const displayKhaddar =
+    khaddarProducts.length > 0
+      ? khaddarProducts.slice(0, 12)
+      : products.slice(24, 36);
+  const displayPret = pretProducts.length > 0 ? pretProducts.slice(0, 12) : products.slice(0, 12);
 
   return (
     <div className="space-y-16 pb-16">
@@ -25,50 +57,9 @@ export const Home: React.FC = () => {
         }}
       />
 
-      {/* High-Impact Luxury Fashion Hero Lookbook Banner */}
-      <section className="relative bg-stone-950 text-white overflow-hidden min-h-[580px] flex items-center justify-center">
-        {/* Background Lookbook Photo Overlay */}
-        <div
-          className="absolute inset-0 bg-cover bg-center opacity-40 scale-105 transform duration-1000"
-          style={{
-            backgroundImage:
-              'url(https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&fit=crop&w=1600&q=80)',
-          }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/40 to-transparent" />
-
-        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6 py-20">
-          <span className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 text-emerald-300 px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase">
-            <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
-            <span>Summer Festive Collection 2026</span>
-          </span>
-
-          <h1 className="text-4xl sm:text-6xl md:text-7xl font-serif font-extrabold tracking-tight leading-tight text-white uppercase">
-            {settings.brandName}
-          </h1>
-
-          <p className="max-w-2xl mx-auto text-stone-200 text-sm sm:text-lg font-light tracking-wide leading-relaxed">
-            Exquisite Unstitched Lawn, Winter Khaddar, and Ready-to-Wear Luxury Pret crafted for the modern Pakistani wardrobe.
-          </p>
-
-          <div className="pt-4 flex flex-wrap items-center justify-center gap-4">
-            <Link
-              to="/products"
-              className="inline-flex items-center gap-2 bg-emerald-800 hover:bg-emerald-700 text-white font-semibold px-8 py-4 rounded-full text-xs uppercase tracking-widest transition-all shadow-xl hover:shadow-2xl hover:scale-105"
-            >
-              <ShoppingBag className="w-4 h-4" />
-              <span>Shop New Arrivals</span>
-            </Link>
-
-            <Link
-              to="/search"
-              className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white border border-white/30 font-semibold px-8 py-4 rounded-full text-xs uppercase tracking-widest backdrop-blur-md transition-all hover:scale-105"
-            >
-              <SearchIcon className="w-4 h-4" />
-              <span>Explore Lookbook</span>
-            </Link>
-          </div>
-        </div>
+      {/* Interactive Hero Lookbook Carousel */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <HeroCarousel />
       </section>
 
       {/* 4 Minimalist Icon Value Badges (Less text, more icons) */}
@@ -132,6 +123,26 @@ export const Home: React.FC = () => {
         </div>
       </section>
 
+      {/* Product Carousel 1: New Arrivals */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <ProductCarousel
+          title="New Arrivals &amp; Summer Eid"
+          subtitle="Latest luxury unstitched lawn and ready to wear pret suits"
+          products={newArrivals}
+          categorySlug="unstitched-lawn"
+        />
+      </section>
+
+      {/* Product Carousel 2: Summer Lawn */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <ProductCarousel
+          title="Unstitched Lawn Collections"
+          subtitle="3-Piece and 2-Piece embroidered lawn suits paired with silk and chiffon dupattas"
+          products={displayLawn}
+          categorySlug="3-piece-lawn"
+        />
+      </section>
+
       {/* Featured Collections Taxonomy Grid */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-8">
@@ -143,6 +154,26 @@ export const Home: React.FC = () => {
           </h2>
         </div>
         <CategoryGrid />
+      </section>
+
+      {/* Product Carousel 3: Winter Khaddar & Karandi */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <ProductCarousel
+          title="Winter Khaddar &amp; Karandi"
+          subtitle="Warm textured fabrics accompanied by woven and embroidered shawls"
+          products={displayKhaddar}
+          categorySlug="winter-khaddar"
+        />
+      </section>
+
+      {/* Product Carousel 4: Luxury Pret */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <ProductCarousel
+          title="Ready to Wear Luxury Pret"
+          subtitle="Stitched velvet, raw silk, and embroidered tunics ready for instant wear"
+          products={displayPret}
+          categorySlug="ready-to-wear"
+        />
       </section>
 
       {/* 100-Product Catalog Showcase */}

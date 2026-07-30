@@ -1,5 +1,7 @@
 export * from './ProductsProvider';
 export * from './ProductCard';
+export * from './HeroCarousel';
+export * from './ProductCarousel';
 export * from './ProductCatalogGrid';
 export * from './ProductImageGallery';
 export * from './ProductDetailView';

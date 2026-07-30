@@ -40,7 +40,7 @@ INSERT OR IGNORE INTO product_variant_options (variant_id, option_value_id) VALU
 
 -- 3. Lookbook Image for Luxury Pret
 INSERT OR IGNORE INTO product_images (id, product_id, r2_key, url, alt_text, sort_order, is_primary) VALUES
-  ('img_prt_01', 'prod_pret_01', 'products/prod_pret_01/zaha-velvet-1.webp', 'https://images.pakistaniclothing.pk/products/prod_pret_01/zaha-velvet-1.webp', 'Zaha Luxury Embroidered Velvet Kurta Midnight Black Front Lookbook', 1, 1);
+  ('img_prt_01', 'prod_pret_01', 'products/prod_pret_01/zaha-velvet-1.webp', '/placeholder-green.svg', 'Zaha Luxury Embroidered Velvet Kurta Midnight Black Front Lookbook', 1, 1);
 
 -- 4. Inventory Ledger & Stock Levels for new SKU variants
 INSERT OR IGNORE INTO inventory_items (variant_id, quantity_available, quantity_reserved, low_stock_threshold) VALUES

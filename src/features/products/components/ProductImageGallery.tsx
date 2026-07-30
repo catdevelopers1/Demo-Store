@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import type { ProductImage } from '../types/image';
-import { ZoomIn, Check, Tag, Image as ImageIcon, X } from 'lucide-react';
+import { ZoomIn, Check, Tag, X, ChevronLeft, ChevronRight } from 'lucide-react';
 
 export const ProductImageGallery: React.FC<{ productId: string; categoryName?: string }> = ({
   productId,
@@ -39,6 +39,26 @@ export const ProductImageGallery: React.FC<{ productId: string; categoryName?: s
     };
   }, [productId]);
 
+  const handlePrevImage = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (images.length <= 1 || !activeImage) {
+      return;
+    }
+    const idx = images.findIndex((img) => img.id === activeImage.id);
+    const prevIdx = idx <= 0 ? images.length - 1 : idx - 1;
+    setActiveImage(images[prevIdx] ?? activeImage);
+  };
+
+  const handleNextImage = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (images.length <= 1 || !activeImage) {
+      return;
+    }
+    const idx = images.findIndex((img) => img.id === activeImage.id);
+    const nextIdx = idx >= images.length - 1 ? 0 : idx + 1;
+    setActiveImage(images[nextIdx] ?? activeImage);
+  };
+
   if (loading && images.length === 0) {
     return (
       <div className="bg-stone-100 aspect-[4/5] rounded-2xl flex flex-col items-center justify-center p-8 border border-stone-200/60 text-xs text-stone-400">
@@ -50,15 +70,14 @@ export const ProductImageGallery: React.FC<{ productId: string; categoryName?: s
   // Fallback visual placeholder if no R2 images uploaded yet
   if (images.length === 0 || !activeImage) {
     return (
-      <div className="bg-stone-100 aspect-[4/5] rounded-2xl flex flex-col items-center justify-center p-8 border border-stone-200/60 relative">
-        <span className="text-[11px] bg-white text-emerald-800 font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-2 border border-stone-200 shadow-xs">
+      <div className="bg-stone-100 dark:bg-stone-800 aspect-[4/5] rounded-2xl overflow-hidden border border-stone-200/60 relative">
+        <img
+          src="/placeholder-green.svg"
+          alt="Pakistani lookbook green placeholder"
+          className="w-full h-full object-cover"
+        />
+        <span className="absolute bottom-4 left-4 bg-stone-900/80 text-white text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
           {categoryName ?? 'Pakistani Collection'}
-        </span>
-        <ImageIcon className="w-12 h-12 text-stone-300 mb-2" />
-        <span className="text-xs text-stone-500 font-medium">No R2 lookbook uploaded yet</span>
-        <span className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm text-stone-800 text-[11px] font-bold px-2.5 py-1 rounded-lg border border-stone-200 shadow-xs flex items-center gap-1">
-          <Tag className="w-3 h-3 text-emerald-700" />
-          <span>COD Ready SKU</span>
         </span>
       </div>
     );
@@ -66,10 +85,10 @@ export const ProductImageGallery: React.FC<{ productId: string; categoryName?: s
 
   return (
     <div className="space-y-4">
-      {/* Main Hero Lookbook Viewer */}
+      {/* Main Hero Lookbook Carousel Viewer */}
       <div
         onClick={() => setZoomModalOpen(true)}
-        className="bg-stone-100 aspect-[4/5] rounded-2xl overflow-hidden border border-stone-200/60 relative cursor-zoom-in group"
+        className="bg-stone-100 dark:bg-stone-800 aspect-[4/5] rounded-2xl overflow-hidden border border-stone-200/60 relative cursor-zoom-in group flex items-center justify-center"
       >
         <img
           src={activeImage.url}
@@ -80,7 +99,7 @@ export const ProductImageGallery: React.FC<{ productId: string; categoryName?: s
         {/* Primary Cover Badge */}
         {activeImage.isPrimary && (
           <span className="absolute top-4 left-4 bg-emerald-800 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider shadow-sm">
-            Primary Lookbook
+            Lookbook
           </span>
         )}
 
@@ -88,6 +107,29 @@ export const ProductImageGallery: React.FC<{ productId: string; categoryName?: s
         <span className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm text-stone-700 p-2 rounded-full shadow-sm opacity-0 group-hover:opacity-100 transition-opacity">
           <ZoomIn className="w-4 h-4" />
         </span>
+
+        {/* Left / Right Carousel Navigation Arrows */}
+        {images.length > 1 && (
+          <>
+            <button
+              type="button"
+              onClick={handlePrevImage}
+              aria-label="Previous Lookbook Image"
+              className="absolute left-3 top-1/2 -translate-y-1/2 p-2 rounded-full bg-stone-900/70 hover:bg-emerald-800 text-white backdrop-blur-md transition-colors shadow-sm cursor-pointer"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+
+            <button
+              type="button"
+              onClick={handleNextImage}
+              aria-label="Next Lookbook Image"
+              className="absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-full bg-stone-900/70 hover:bg-emerald-800 text-white backdrop-blur-md transition-colors shadow-sm cursor-pointer"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
+          </>
+        )}
 
         <span className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm text-stone-800 text-[11px] font-bold px-2.5 py-1 rounded-lg border border-stone-200 shadow-xs flex items-center gap-1">
           <Tag className="w-3 h-3 text-emerald-700" />
