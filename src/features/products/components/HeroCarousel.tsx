@@ -9,6 +9,7 @@ interface Slide {
   subtitle: string;
   ctaText: string;
   ctaLink: string;
+  imageUrl: string;
 }
 
 const SLIDES: Slide[] = [
@@ -20,6 +21,8 @@ const SLIDES: Slide[] = [
       'Unstitched 3-piece and ready-to-wear printed lawn ensembles paired with silk dupattas.',
     ctaText: 'SHOP SALE NOW',
     ctaLink: '/products',
+    imageUrl:
+      'https://us.khaadi.com/dw/image/v2/BJTG_PRD/on/demandware.static/-/Library-Sites-KhaadiSharedLibrary/default/dwa8c56fcb/images/0.0.0-07-14-2026-desktop-banner-1920x700.jpg',
   },
   {
     id: 1,
@@ -29,6 +32,8 @@ const SLIDES: Slide[] = [
       'Stitched velvet, raw silk, and embroidered kurtas crafted for festive wear.',
     ctaText: 'DISCOVER PRET',
     ctaLink: '/search?category=ready-to-wear',
+    imageUrl:
+      'https://us.khaadi.com/dw/image/v2/BJTG_PRD/on/demandware.static/-/Library-Sites-KhaadiSharedLibrary/default/dw79194ae3/images/0.0-0.0-0.0-0.0-0.0-EMAN-desktop-banner-1920x700.jpg',
   },
   {
     id: 2,
@@ -38,6 +43,8 @@ const SLIDES: Slide[] = [
       'Warm textured fabrics accompanied by embroidered woolen shawls.',
     ctaText: 'EXPLORE KHADDAR',
     ctaLink: '/search?category=winter-khaddar',
+    imageUrl:
+      'https://us.khaadi.com/dw/image/v2/BJTG_PRD/on/demandware.static/-/Library-Sites-KhaadiSharedLibrary/default/dwadb79ae1/images/0.0-AFFAIR-desktop-banner-1920x700.jpg',
   },
 ];
 
@@ -63,9 +70,9 @@ export const HeroCarousel: React.FC = () => {
 
   return (
     <div className="relative bg-black text-white overflow-hidden w-full aspect-[16/9] sm:aspect-[21/8] md:aspect-[21/7] flex items-center justify-start">
-      {/* Singular plain solid green placeholder background */}
+      {/* Authentic Khaadi Campaign Banner Photo */}
       <img
-        src="/placeholder-green-wide.svg"
+        src={slide.imageUrl}
         alt="Khaadi Campaign Banner"
         className="absolute inset-0 w-full h-full object-cover opacity-95 transition-opacity duration-700"
       />
