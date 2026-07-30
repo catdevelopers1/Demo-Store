@@ -480,13 +480,13 @@ export const CodCheckoutPage: React.FC = () => {
               </div>
             )}
 
-            {/* Turnstile Bot Defense Notice */}
-            <div className="p-3 rounded-xl bg-stone-50 border border-stone-200 flex items-center justify-between text-xs text-stone-600">
-              <span className="flex items-center gap-1.5 font-semibold">
-                <ShieldCheck className="w-4 h-4 text-emerald-600" />
-                Cloudflare Turnstile Verified
+            {/* Security Guarantee Notice */}
+            <div className="p-3 bg-stone-50 border border-[#EAEAEA] flex items-center justify-between text-[11px] text-gray-500 uppercase tracking-wider">
+              <span className="flex items-center gap-1.5 font-semibold text-black">
+                <ShieldCheck className="w-4 h-4 text-black" />
+                <span>100% SECURE CHECKOUT</span>
               </span>
-              <span className="font-mono text-[10px]">100% ACID Transaction</span>
+              <span>NATIONWIDE COD</span>
             </div>
 
             {/* Submit Action Button */}
@@ -494,12 +494,12 @@ export const CodCheckoutPage: React.FC = () => {
               type="submit"
               form="cod-checkout-form"
               disabled={submitting}
-              className="w-full bg-emerald-800 hover:bg-emerald-700 text-white font-extrabold py-4 rounded-2xl text-sm transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 disabled:opacity-50"
+              className="w-full bg-black hover:bg-[#333333] text-white font-bold py-4 text-xs tracking-[0.2em] uppercase transition-colors shadow-sm flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer"
             >
               <span>
                 {submitting
-                  ? 'Executing Atomic D1 COD Order...'
-                  : `Place Cash on Delivery Order — ${formatPkr(finalTotalPkr)}`}
+                  ? 'PLACING ORDER...'
+                  : `PLACE ORDER — ${formatPkr(finalTotalPkr)}`}
               </span>
               <ArrowRight className="w-4 h-4" />
             </button>

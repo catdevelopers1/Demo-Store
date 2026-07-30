@@ -209,38 +209,33 @@ export const ProductDetailView: React.FC = () => {
               )}
             </div>
 
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-stone-900 mt-2">
+            <h1 className="text-2xl sm:text-3xl font-normal tracking-wide text-black mt-2 uppercase">
               {product.name}
             </h1>
 
-            <div className="mt-4 flex items-baseline gap-3">
-              <span className="text-3xl font-extrabold text-stone-900">
+            <div className="mt-3 flex items-baseline gap-3">
+              <span className="text-xl sm:text-2xl font-bold text-black">
                 {formatPkr(effectivePricePkr)}
               </span>
-              {matchingVariant?.priceOverridePkr && (
-                <span className="text-xs text-emerald-700 font-semibold bg-emerald-100 px-2 py-0.5 rounded">
-                  Variant Price Override Active
-                </span>
-              )}
             </div>
 
-            <p className="mt-6 text-sm text-stone-600 leading-relaxed">
+            <p className="mt-6 text-xs sm:text-sm text-gray-600 leading-relaxed font-light">
               {product.description ??
                 'Premium Pakistani apparel made from fine fabrics. Designed for lasting comfort and elegant style.'}
             </p>
 
             {/* Dynamic Option Selectors (Size, Color, Fabric) */}
             {product.options.length > 0 && (
-              <div className="mt-8 space-y-6 pt-6 border-t border-stone-100">
+              <div className="mt-8 space-y-6 pt-6 border-t border-[#EAEAEA]">
                 {product.options.map((option) => (
                   <div key={option.id}>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-2">
-                      Select {option.name}:{' '}
-                      <span className="text-emerald-800 font-semibold">
+                    <label className="block text-[11px] font-bold uppercase tracking-[0.15em] text-black mb-3">
+                      {option.name}:{' '}
+                      <span className="text-gray-500 font-normal">
                         {selectedOptions[option.name]}
                       </span>
                     </label>
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-wrap gap-2.5">
                       {option.values.map((val) => {
                         const isSelected = selectedOptions[option.name] === val.value;
                         return (
@@ -248,10 +243,10 @@ export const ProductDetailView: React.FC = () => {
                             key={val.id}
                             type="button"
                             onClick={() => handleOptionClick(option.name, val.value)}
-                            className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all ${
+                            className={`min-w-[44px] h-11 px-3 border flex items-center justify-center text-xs font-semibold uppercase transition-all cursor-pointer ${
                               isSelected
-                                ? 'bg-emerald-800 text-white shadow-sm ring-2 ring-emerald-800 ring-offset-2'
-                                : 'bg-stone-100 text-stone-700 hover:bg-stone-200 border border-stone-200'
+                                ? 'border-black bg-black text-white shadow-2xs'
+                                : 'border-[#EAEAEA] bg-white text-black hover:border-black'
                             }`}
                           >
                             {val.value}
@@ -265,31 +260,31 @@ export const ProductDetailView: React.FC = () => {
             )}
           </div>
 
-          <div className="space-y-4 pt-6 border-t border-stone-100">
+          <div className="space-y-6 pt-6 border-t border-[#EAEAEA]">
             <button
               type="button"
               onClick={handleAddToCart}
               disabled={isOutOfStock}
-              className={`w-full font-bold py-4 rounded-2xl text-sm transition-all shadow-md flex items-center justify-center gap-2 ${
+              className={`w-full font-bold py-4 text-xs tracking-[0.2em] uppercase transition-all flex items-center justify-center gap-2 cursor-pointer ${
                 isOutOfStock
-                  ? 'bg-stone-300 text-stone-500 cursor-not-allowed shadow-none'
-                  : 'bg-emerald-800 hover:bg-emerald-700 text-white hover:shadow-lg'
+                  ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                  : 'bg-black text-white hover:bg-[#333333] shadow-sm'
               }`}
             >
               <Tag className="w-4 h-4" />
               <span>
                 {isOutOfStock
-                  ? 'Currently Out of Stock'
-                  : `Add to COD Cart — ${formatPkr(effectivePricePkr)}`}
+                  ? 'OUT OF STOCK'
+                  : `ADD TO BAG — ${formatPkr(effectivePricePkr)}`}
               </span>
             </button>
 
-            <div className="flex items-center justify-between text-xs text-stone-500 pt-2">
-              <span className="flex items-center gap-1">
-                <ShieldCheck className="w-4 h-4 text-emerald-600" />
-                100% Original &amp; Secure COD Checkout
+            <div className="flex items-center justify-between text-[11px] text-gray-400 tracking-wider uppercase pt-2 border-t border-[#EAEAEA]">
+              <span className="flex items-center gap-1.5">
+                <ShieldCheck className="w-4 h-4 text-black" />
+                <span>100% ORIGINAL &amp; NATIONWIDE COD</span>
               </span>
-              <span>7-Day Returns</span>
+              <span>7-DAY RETURNS</span>
             </div>
           </div>
         </div>

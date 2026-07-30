@@ -2,8 +2,8 @@ import React from 'react';
 import {
   Truck,
   ShieldCheck,
-  Zap,
   RefreshCw,
+  Globe,
 } from 'lucide-react';
 import { useSettings } from '../features/settings';
 import { CategoryGrid } from '../features/categories';
@@ -42,7 +42,7 @@ export const Home: React.FC = () => {
   const displayPret = pretProducts.length > 0 ? pretProducts.slice(0, 12) : products.slice(0, 12);
 
   return (
-    <div className="space-y-16 pb-16">
+    <div className="space-y-16 pb-16 bg-white">
       <SeoHead
         title={`${settings.brandName} | Exquisite Pakistani Fashion`}
         description="Shop luxury unstitched lawn, khaddar, and ready-to-wear Pakistani clothing with Cash on Delivery across Pakistan."
@@ -57,126 +57,98 @@ export const Home: React.FC = () => {
         }}
       />
 
-      {/* Interactive Hero Lookbook Carousel */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* 1. Khaadi Full-Bleed Hero Lookbook Carousel */}
+      <section className="w-full">
         <HeroCarousel />
       </section>
 
-      {/* 4 Minimalist Icon Value Badges (Less text, more icons) */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-          <div className="bg-white dark:bg-stone-900 p-5 rounded-2xl border border-stone-200/80 dark:border-stone-800 shadow-xs flex items-center gap-4">
-            <div className="w-12 h-12 rounded-full bg-emerald-50 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-400 flex items-center justify-center shrink-0">
-              <Truck className="w-6 h-6 stroke-1" />
-            </div>
-            <div>
-              <h3 className="font-serif font-bold text-stone-900 dark:text-white text-sm">
-                Free COD Shipping
-              </h3>
-              <p className="text-xs text-stone-500 dark:text-stone-400">
-                Orders over PKR 5,000
-              </p>
-            </div>
+      {/* 2. Khaadi Minimalist Benefits Strip */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-y border-[#EAEAEA] py-8">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+          <div className="flex flex-col items-center justify-center space-y-2">
+            <Truck className="w-5 h-5 stroke-[1.5] text-black" />
+            <h3 className="text-[11px] font-bold tracking-[0.18em] uppercase text-black">
+              FREE COD SHIPPING
+            </h3>
+            <p className="text-[10px] text-gray-400 uppercase tracking-wider">
+              ORDERS OVER PKR 5,000
+            </p>
           </div>
 
-          <div className="bg-white dark:bg-stone-900 p-5 rounded-2xl border border-stone-200/80 dark:border-stone-800 shadow-xs flex items-center gap-4">
-            <div className="w-12 h-12 rounded-full bg-emerald-50 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-400 flex items-center justify-center shrink-0">
-              <Zap className="w-6 h-6 stroke-1" />
-            </div>
-            <div>
-              <h3 className="font-serif font-bold text-stone-900 dark:text-white text-sm">
-                Instant Verification
-              </h3>
-              <p className="text-xs text-stone-500 dark:text-stone-400">
-                WhatsApp &amp; SMS Helpline
-              </p>
-            </div>
+          <div className="flex flex-col items-center justify-center space-y-2">
+            <ShieldCheck className="w-5 h-5 stroke-[1.5] text-black" />
+            <h3 className="text-[11px] font-bold tracking-[0.18em] uppercase text-black">
+              100% ORIGINAL FABRICS
+            </h3>
+            <p className="text-[10px] text-gray-400 uppercase tracking-wider">
+              PURE LAWN &amp; KHADDAR
+            </p>
           </div>
 
-          <div className="bg-white dark:bg-stone-900 p-5 rounded-2xl border border-stone-200/80 dark:border-stone-800 shadow-xs flex items-center gap-4">
-            <div className="w-12 h-12 rounded-full bg-emerald-50 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-400 flex items-center justify-center shrink-0">
-              <RefreshCw className="w-6 h-6 stroke-1" />
-            </div>
-            <div>
-              <h3 className="font-serif font-bold text-stone-900 dark:text-white text-sm">
-                7-Day Exchange
-              </h3>
-              <p className="text-xs text-stone-500 dark:text-stone-400">
-                Hassle-Free Returns Policy
-              </p>
-            </div>
+          <div className="flex flex-col items-center justify-center space-y-2">
+            <RefreshCw className="w-5 h-5 stroke-[1.5] text-black" />
+            <h3 className="text-[11px] font-bold tracking-[0.18em] uppercase text-black">
+              7-DAY EXCHANGE
+            </h3>
+            <p className="text-[10px] text-gray-400 uppercase tracking-wider">
+              EASY RETURNS POLICY
+            </p>
           </div>
 
-          <div className="bg-white dark:bg-stone-900 p-5 rounded-2xl border border-stone-200/80 dark:border-stone-800 shadow-xs flex items-center gap-4">
-            <div className="w-12 h-12 rounded-full bg-emerald-50 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-400 flex items-center justify-center shrink-0">
-              <ShieldCheck className="w-6 h-6 stroke-1" />
-            </div>
-            <div>
-              <h3 className="font-serif font-bold text-stone-900 dark:text-white text-sm">
-                100% Original
-              </h3>
-              <p className="text-xs text-stone-500 dark:text-stone-400">
-                Pure Lawn &amp; Khaddar Fabrics
-              </p>
-            </div>
+          <div className="flex flex-col items-center justify-center space-y-2">
+            <Globe className="w-5 h-5 stroke-[1.5] text-black" />
+            <h3 className="text-[11px] font-bold tracking-[0.18em] uppercase text-black">
+              NATIONWIDE DISPATCH
+            </h3>
+            <p className="text-[10px] text-gray-400 uppercase tracking-wider">
+              ALL 7 PROVINCES &amp; CITIES
+            </p>
           </div>
         </div>
       </section>
 
-      {/* Product Carousel 1: New Arrivals */}
+      {/* 3. Product Carousel 1: NEW IN */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <ProductCarousel
-          title="New Arrivals &amp; Summer Eid"
-          subtitle="Latest luxury unstitched lawn and ready to wear pret suits"
+          title="NEW IN"
           products={newArrivals}
           categorySlug="unstitched-lawn"
         />
       </section>
 
-      {/* Product Carousel 2: Summer Lawn */}
+      {/* 4. Product Carousel 2: UNSTITCHED LAWN */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <ProductCarousel
-          title="Unstitched Lawn Collections"
-          subtitle="3-Piece and 2-Piece embroidered lawn suits paired with silk and chiffon dupattas"
+          title="UNSTITCHED LAWN"
           products={displayLawn}
           categorySlug="3-piece-lawn"
         />
       </section>
 
-      {/* Featured Collections Taxonomy Grid */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-8">
-          <span className="text-xs font-semibold text-emerald-800 dark:text-emerald-400 tracking-widest uppercase">
-            Curated Collections
-          </span>
-          <h2 className="text-2xl sm:text-3xl font-serif font-extrabold text-stone-900 dark:text-white tracking-tight mt-1">
-            Shop by Category
-          </h2>
-        </div>
-        <CategoryGrid />
-      </section>
-
-      {/* Product Carousel 3: Winter Khaddar & Karandi */}
+      {/* 5. Product Carousel 3: READY TO WEAR */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <ProductCarousel
-          title="Winter Khaddar &amp; Karandi"
-          subtitle="Warm textured fabrics accompanied by woven and embroidered shawls"
-          products={displayKhaddar}
-          categorySlug="winter-khaddar"
-        />
-      </section>
-
-      {/* Product Carousel 4: Luxury Pret */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <ProductCarousel
-          title="Ready to Wear Luxury Pret"
-          subtitle="Stitched velvet, raw silk, and embroidered tunics ready for instant wear"
+          title="READY TO WEAR"
           products={displayPret}
           categorySlug="ready-to-wear"
         />
       </section>
 
-      {/* 100-Product Catalog Showcase */}
+      {/* 6. Product Carousel 4: WINTER KHADDAR */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <ProductCarousel
+          title="WINTER KHADDAR"
+          products={displayKhaddar}
+          categorySlug="winter-khaddar"
+        />
+      </section>
+
+      {/* 7. Shop by Category */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <CategoryGrid />
+      </section>
+
+      {/* 8. 100-Product Catalog Showcase */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <ProductCatalogGrid />
       </section>

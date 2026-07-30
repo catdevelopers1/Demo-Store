@@ -83,7 +83,7 @@ export const CartDrawer: React.FC = () => {
                     COD Shopping Bag
                   </h2>
                   <p className="text-[11px] text-stone-500 font-medium">
-                    {totalCount} {totalCount === 1 ? 'item' : 'items'} • Authoritative Server Prices
+                    {totalCount} {totalCount === 1 ? 'item' : 'items'}
                   </p>
                 </div>
               </div>
@@ -283,22 +283,22 @@ export const CartDrawer: React.FC = () => {
             <Link
               to="/checkout"
               onClick={() => setDrawerOpen(false)}
-              className={`w-full font-bold py-4 rounded-2xl text-sm transition-all shadow-md flex items-center justify-center gap-2 ${
+              className={`w-full font-bold py-4 text-xs tracking-[0.2em] uppercase transition-all flex items-center justify-center gap-2 cursor-pointer ${
                 items.length === 0
-                  ? 'bg-stone-300 text-stone-500 pointer-events-none'
-                  : 'bg-emerald-800 hover:bg-emerald-700 text-white hover:shadow-lg'
+                  ? 'bg-gray-200 text-gray-400 pointer-events-none'
+                  : 'bg-black hover:bg-[#333333] text-white shadow-sm'
               }`}
             >
-              <span>Proceed to COD Checkout</span>
+              <span>PROCEED TO CHECKOUT</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
 
-            <div className="flex items-center justify-between text-[11px] text-stone-500 pt-1">
+            <div className="flex items-center justify-between text-[11px] text-gray-400 uppercase tracking-wider pt-2 border-t border-[#EAEAEA]">
               <span className="flex items-center gap-1">
-                <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-                100% Verified D1 Server-Side Prices
+                <ShieldCheck className="w-3.5 h-3.5 text-black" />
+                <span>100% ORIGINAL FABRICS</span>
               </span>
-              <span className="font-mono">Milestone 10 (`v0.11.0`)</span>
+              <span>NATIONWIDE COD</span>
             </div>
           </div>
         </div>

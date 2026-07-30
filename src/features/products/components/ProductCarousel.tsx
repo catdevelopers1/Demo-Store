@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import type { Product } from '../types';
 import { ProductCard } from './ProductCard';
 
@@ -13,7 +13,6 @@ interface ProductCarouselProps {
 
 export const ProductCarousel: React.FC<ProductCarouselProps> = ({
   title,
-  subtitle,
   products,
   categorySlug,
 }) => {
@@ -37,60 +36,56 @@ export const ProductCarousel: React.FC<ProductCarouselProps> = ({
 
   return (
     <div className="space-y-6">
-      {/* Carousel Header with Arrows */}
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+      {/* Khaadi Collection Row Header */}
+      <div className="flex items-center justify-between border-b border-[#EAEAEA] pb-4">
         <div>
-          <h2 className="text-2xl sm:text-3xl font-serif font-extrabold text-stone-900 dark:text-white tracking-tight">
+          <h2 className="text-lg sm:text-xl font-bold tracking-[0.18em] uppercase text-black">
             {title}
           </h2>
-          {subtitle && (
-            <p className="text-xs text-stone-500 dark:text-stone-400 mt-1">
-              {subtitle}
-            </p>
-          )}
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-4">
           {categorySlug && (
             <Link
               to={`/search?category=${categorySlug}`}
-              className="text-xs font-semibold text-[var(--brand-primary-hex,#047857)] hover:underline inline-flex items-center gap-1 mr-2"
+              className="text-xs font-bold tracking-[0.18em] uppercase text-black hover:underline mr-2"
             >
-              <span>View All</span>
-              <ArrowRight className="w-3.5 h-3.5" />
+              VIEW ALL
             </Link>
           )}
 
-          <button
-            type="button"
-            onClick={scrollLeft}
-            aria-label="Scroll Carousel Left"
-            className="p-2.5 rounded-full bg-stone-100 dark:bg-stone-800 hover:bg-emerald-800 hover:text-white text-stone-700 dark:text-stone-300 transition-colors shadow-xs cursor-pointer"
-          >
-            <ChevronLeft className="w-5 h-5" />
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={scrollLeft}
+              aria-label="Scroll Carousel Left"
+              className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-[#EAEAEA] bg-white hover:bg-black hover:text-white text-black transition-colors flex items-center justify-center cursor-pointer shadow-2xs"
+            >
+              <ChevronLeft className="w-5 h-5 stroke-1" />
+            </button>
 
-          <button
-            type="button"
-            onClick={scrollRight}
-            aria-label="Scroll Carousel Right"
-            className="p-2.5 rounded-full bg-stone-100 dark:bg-stone-800 hover:bg-emerald-800 hover:text-white text-stone-700 dark:text-stone-300 transition-colors shadow-xs cursor-pointer"
-          >
-            <ChevronRight className="w-5 h-5" />
-          </button>
+            <button
+              type="button"
+              onClick={scrollRight}
+              aria-label="Scroll Carousel Right"
+              className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-[#EAEAEA] bg-white hover:bg-black hover:text-white text-black transition-colors flex items-center justify-center cursor-pointer shadow-2xs"
+            >
+              <ChevronRight className="w-5 h-5 stroke-1" />
+            </button>
+          </div>
         </div>
       </div>
 
-      {/* Horizontal Scrolling Product Slider */}
+      {/* Horizontal Scrolling Product Cards */}
       <div
         ref={scrollRef}
-        className="flex items-stretch gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-4 pt-1 px-1 -mx-1"
+        className="flex items-stretch gap-4 sm:gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-4 pt-1"
         style={{ scrollbarWidth: 'none' }}
       >
         {products.map((p) => (
           <div
             key={p.id}
-            className="min-w-[260px] sm:min-w-[280px] max-w-[300px] shrink-0 snap-start flex flex-col"
+            className="min-w-[240px] sm:min-w-[280px] max-w-[300px] shrink-0 snap-start flex flex-col"
           >
             <ProductCard product={p} />
           </div>

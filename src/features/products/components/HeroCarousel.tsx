@@ -1,16 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import {
-  ChevronLeft,
-  ChevronRight,
-  ShoppingBag,
-  Search as SearchIcon,
-  Sparkles,
-} from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface Slide {
   id: number;
-  badge: string;
+  collectionText: string;
   title: string;
   subtitle: string;
   ctaText: string;
@@ -20,30 +14,30 @@ interface Slide {
 const SLIDES: Slide[] = [
   {
     id: 0,
-    badge: 'Summer Festive 2026',
-    title: 'EXQUISITE UNSTITCHED LAWN',
+    collectionText: 'EXCLUSIVELY ONLINE • 30% - 50% OFF',
+    title: 'SUMMER LAWN 2026',
     subtitle:
-      'Pure lawn 3-piece ensembles paired with digital printed silk dupattas and embroidered damans.',
-    ctaText: 'Shop Lawn Collection',
+      'Unstitched 3-piece and ready-to-wear printed lawn ensembles paired with silk dupattas.',
+    ctaText: 'SHOP SALE NOW',
     ctaLink: '/products',
   },
   {
     id: 1,
-    badge: 'Winter Collection',
-    title: 'KASHMIRI KHADDAR & KARANDI',
+    collectionText: 'NEW COLLECTION • LUXURY PRET',
+    title: 'READY TO WEAR PRET',
     subtitle:
-      'Warm textured fabrics accompanied by embroidered woolen shawls for effortless elegance.',
-    ctaText: 'Explore Khaddar',
-    ctaLink: '/search?category=winter-khaddar',
+      'Stitched velvet, raw silk, and embroidered kurtas crafted for festive wear.',
+    ctaText: 'DISCOVER PRET',
+    ctaLink: '/search?category=ready-to-wear',
   },
   {
     id: 2,
-    badge: 'Luxury Pret',
-    title: 'READY TO WEAR EMBROIDERED KURTAS',
+    collectionText: 'WINTER EDIT • KHADDAR & KARANDI',
+    title: 'KASHMIRI KHADDAR',
     subtitle:
-      'Stitched velvet, raw silk, and cambric tunics featuring traditional tilla and zardozi work.',
-    ctaText: 'Browse Ready to Wear',
-    ctaLink: '/search?category=ready-to-wear',
+      'Warm textured fabrics accompanied by embroidered woolen shawls.',
+    ctaText: 'EXPLORE KHADDAR',
+    ctaLink: '/search?category=winter-khaddar',
   },
 ];
 
@@ -68,80 +62,70 @@ export const HeroCarousel: React.FC = () => {
   const slide = SLIDES[currentSlide] ?? SLIDES[0]!;
 
   return (
-    <div className="relative bg-stone-950 text-white overflow-hidden rounded-3xl min-h-[520px] sm:min-h-[580px] flex items-center justify-center shadow-xl border border-stone-800">
+    <div className="relative bg-black text-white overflow-hidden w-full aspect-[16/9] sm:aspect-[21/8] md:aspect-[21/7] flex items-center justify-start">
       {/* Singular plain solid green placeholder background */}
       <img
         src="/placeholder-green-wide.svg"
-        alt="Pakistani Fashion Lookbook Background"
-        className="absolute inset-0 w-full h-full object-cover opacity-90 transition-opacity duration-700"
+        alt="Khaadi Campaign Banner"
+        className="absolute inset-0 w-full h-full object-cover opacity-95 transition-opacity duration-700"
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/40 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
 
-      {/* Slide Content */}
-      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6 py-16">
-        <span className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-md border border-white/30 text-emerald-300 px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase">
-          <Sparkles className="w-3.5 h-3.5 text-emerald-300" />
-          <span>{slide.badge}</span>
+      {/* Slide Content (Khaadi Left-Aligned Overlay) */}
+      <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 w-full space-y-4 sm:space-y-6">
+        <span className="inline-block text-[10px] sm:text-xs font-semibold tracking-[0.25em] uppercase text-gray-200">
+          {slide.collectionText}
         </span>
 
-        <h1 className="text-3xl sm:text-5xl md:text-6xl font-serif font-extrabold tracking-tight leading-tight text-white uppercase">
+        <h1 className="text-3xl sm:text-5xl md:text-6xl font-black tracking-[0.18em] leading-tight text-white uppercase max-w-2xl">
           {slide.title}
         </h1>
 
-        <p className="max-w-xl mx-auto text-stone-200 text-sm sm:text-base font-light tracking-wide leading-relaxed">
+        <p className="max-w-lg text-gray-200 text-xs sm:text-sm font-normal tracking-wide leading-relaxed">
           {slide.subtitle}
         </p>
 
-        <div className="pt-4 flex flex-wrap items-center justify-center gap-4">
+        <div className="pt-2 sm:pt-4">
           <Link
             to={slide.ctaLink}
-            className="inline-flex items-center gap-2 bg-emerald-800 hover:bg-emerald-700 text-white font-semibold px-7 py-3.5 rounded-full text-xs uppercase tracking-widest transition-all shadow-lg hover:shadow-xl hover:scale-105"
+            className="inline-block bg-white text-black hover:bg-black hover:text-white px-8 sm:px-10 py-3.5 sm:py-4 text-xs font-bold tracking-[0.22em] uppercase transition-all duration-300 shadow-md"
           >
-            <ShoppingBag className="w-4 h-4" />
-            <span>{slide.ctaText}</span>
-          </Link>
-
-          <Link
-            to="/search"
-            className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white border border-white/30 font-semibold px-7 py-3.5 rounded-full text-xs uppercase tracking-widest backdrop-blur-md transition-all hover:scale-105"
-          >
-            <SearchIcon className="w-4 h-4" />
-            <span>Explore All Lookbooks</span>
+            {slide.ctaText}
           </Link>
         </div>
       </div>
 
-      {/* Left / Right Carousel Arrow Buttons */}
+      {/* Sleek Circular Left / Right Carousel Navigation Arrows */}
       <button
         type="button"
         onClick={prevSlide}
-        aria-label="Previous Carousel Slide"
-        className="absolute left-4 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-stone-900/70 hover:bg-emerald-800 text-white backdrop-blur-md border border-white/10 transition-colors shadow-md cursor-pointer"
+        aria-label="Previous Campaign Slide"
+        className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/20 hover:bg-white text-white hover:text-black backdrop-blur-md transition-colors flex items-center justify-center cursor-pointer"
       >
-        <ChevronLeft className="w-6 h-6" />
+        <ChevronLeft className="w-6 h-6 stroke-1" />
       </button>
 
       <button
         type="button"
         onClick={nextSlide}
-        aria-label="Next Carousel Slide"
-        className="absolute right-4 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-stone-900/70 hover:bg-emerald-800 text-white backdrop-blur-md border border-white/10 transition-colors shadow-md cursor-pointer"
+        aria-label="Next Campaign Slide"
+        className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/20 hover:bg-white text-white hover:text-black backdrop-blur-md transition-colors flex items-center justify-center cursor-pointer"
       >
-        <ChevronRight className="w-6 h-6" />
+        <ChevronRight className="w-6 h-6 stroke-1" />
       </button>
 
-      {/* Slide Indicator Dots */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2">
+      {/* Khaadi Minimalist Slide Indicator Bars */}
+      <div className="absolute bottom-6 left-6 sm:left-12 lg:left-16 z-20 flex items-center gap-2">
         {SLIDES.map((s, index) => (
           <button
             key={s.id}
             type="button"
             onClick={() => setCurrentSlide(index)}
             aria-label={`Jump to slide ${index + 1}`}
-            className={`h-2.5 rounded-full transition-all cursor-pointer ${
+            className={`h-1 transition-all duration-300 cursor-pointer ${
               currentSlide === index
-                ? 'w-8 bg-emerald-400 shadow-sm'
-                : 'w-2.5 bg-white/40 hover:bg-white/70'
+                ? 'w-10 bg-white'
+                : 'w-4 bg-white/40 hover:bg-white/70'
             }`}
           />
         ))}
