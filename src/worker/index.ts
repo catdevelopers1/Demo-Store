@@ -53,6 +53,10 @@ import {
   handleUpdateDiscount,
   handleDeleteDiscount,
 } from '../features/discounts/api';
+import {
+  handleCodCheckout,
+  handleGetOrderByNumber,
+} from '../features/checkout/api';
 
 /**
  * Cloudflare Worker Edge fetch handler for the commerce framework
@@ -80,7 +84,7 @@ export default {
         const isDbConfigured = Boolean(env.DB);
         return createSuccessResponse({
           status: 'healthy',
-          version: '0.11.0',
+          version: '0.12.0',
           edge: 'Cloudflare Workers',
           dbConfigured: isDbConfigured,
           timestamp: new Date().toISOString(),
@@ -239,6 +243,15 @@ export default {
         }
       }
 
+      // Cash on Delivery (COD) Checkout Engine API endpoints (Milestone 11)
+      if (url.pathname === '/api/v1/checkout/cod' && request.method === 'POST') {
+        return await handleCodCheckout(request, env);
+      }
+      if (url.pathname.startsWith('/api/v1/orders/') && request.method === 'GET') {
+        const orderNumber = url.pathname.replace('/api/v1/orders/', '').trim();
+        return await handleGetOrderByNumber(env, orderNumber);
+      }
+
       // Default 404 handler for unrecognized API routes
       if (url.pathname.startsWith('/api/v1/')) {
         return createErrorResponse(
@@ -250,7 +263,7 @@ export default {
       }
 
       // Fallback for static assets or unsupported routes
-      return new Response('Pakistani Commerce Framework Edge Backend v0.11.0', {
+      return new Response('Pakistani Commerce Framework Edge Backend v0.12.0', {
         status: 200,
         headers: { 'Content-Type': 'text/plain; charset=utf-8' },
       });

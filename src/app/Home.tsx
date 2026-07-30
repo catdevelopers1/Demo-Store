@@ -102,14 +102,14 @@ export const Home: React.FC = () => {
         <div className="bg-stone-100 border border-stone-200 rounded-2xl p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
             <h3 className="font-semibold text-stone-900 text-sm">
-              Milestone 10 (`v0.11.0`): Discount Code & Coupon Engine Complete
+              Milestone 11 (`v0.12.0`): COD Checkout Engine Complete
             </h3>
             <p className="text-xs text-stone-600 mt-1">
-              Percentage and fixed PKR promo codes with min order thresholds, max caps, and usage limits operational.
+              Atomic D1 batch COD order placement, high-value verification flags, and Turnstile challenges operational.
             </p>
           </div>
           <span className="bg-emerald-800 text-white text-xs font-semibold px-3 py-1.5 rounded-lg">
-            Ready for Milestone 11
+            Ready for Milestone 12
           </span>
         </div>
       </section>

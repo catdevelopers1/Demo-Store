@@ -39,7 +39,7 @@ export const Layout: React.FC = () => {
               {settings.brandName}
             </span>
             <span className="text-[10px] bg-emerald-100 text-emerald-800 font-semibold px-2 py-0.5 rounded-full uppercase tracking-wider hidden sm:inline">
-              COD Engine v0.11
+              COD Engine v0.12
             </span>
           </Link>
 
@@ -154,7 +154,7 @@ export const Layout: React.FC = () => {
         </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 pt-8 border-t border-stone-800 text-xs text-stone-500 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p>© 2026 {settings.brandName}. Open-Source Reusable Commerce Framework.</p>
-          <p>Version v0.11.0 — Discount Code & Coupon Promotion Engine</p>
+          <p>Version v0.12.0 — Cash on Delivery (COD) Checkout Engine</p>
         </div>
       </footer>
     </div>

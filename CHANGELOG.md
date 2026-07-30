@@ -4,6 +4,33 @@ All notable changes to this project are documented in this file. The format is b
 
 ---
 
+## [v0.12.0] - 2026-07-30 — Milestone 11: Cash on Delivery (COD) Checkout Engine
+### Added
+- Created D1 SQLite migration `migrations/0010_orders.sql` establishing `orders`, `order_items`, and `order_timeline` tables indexed on customer, order number, and status, and seeding initial demo COD order (`#PK-10001`).
+- Implemented Pakistani COD calculation utilities (`src/features/checkout/utils/cod.ts`):
+  - `calculateCodShippingPkr`: calculates shipping fee in PKR based on store free-shipping threshold (`5000 PKR`).
+  - `generateOrderNumber`: generates executive Pakistani order identifiers (`#PK-XXXXX`).
+  - `evaluateOrderInitialStatus`: evaluates high-value orders (`> 25,000 PKR`), setting status to `PENDING_VERIFICATION` requiring manual SMS/WhatsApp customer confirmation before dispatch.
+- Implemented Feature-First Cash on Delivery (COD) Checkout module (`src/features/checkout/`):
+  - Zod validation schema (`codCheckoutSchema`) validating non-empty cart items, Pakistani shipping address (`03XX...` format, province, city), optional coupon code, and Turnstile challenge token.
+  - Authoritative D1 COD repository (`src/features/checkout/db/checkoutRepository.ts`):
+    - `executeCodCheckout`: executes a **single atomic D1 batch transaction** (`db.batch()`) across cart re-validation, coupon evaluation, COD shipping math, inventory reservation via conditional SQL constraints (`WHERE quantity_available >= ?`), order header insertion, line item insertion, coupon usage count incrementing, and initial order timeline audit logging.
+    - `getOrderByNumber`: retrieves complete order summary and lifecycle timeline by `#PK-XXXXX`.
+  - Edge Worker API endpoints in `src/features/checkout/api/handlers.ts`:
+    - `POST /api/v1/checkout/cod` (Public endpoint for guest and logged-in customers with Turnstile challenge).
+    - `GET /api/v1/orders/:orderNumber` (Public endpoint for order confirmation and tracking).
+  - React 19 Storefront COD components:
+    - `<CodCheckoutPage />` interactive checkout form (`/checkout`) with automatic default address pre-filling for logged-in customers, Pakistani province/city selectors, promo code input box, COD shipping progress, and high-value verification notice.
+    - `<OrderConfirmationPage />` thank-you page (`/order-confirmation/:orderNumber`) with `#PK-XXXXX` header badge, status notification, itemized bill PKR, delivery address snapshot, and audit timeline trail.
+- Updated `<CartDrawer />` (`src/features/cart/components/CartDrawer.tsx`) to link "Proceed to COD Checkout" button directly to `/checkout`.
+- Added `/checkout` and `/order-confirmation/:orderNumber` routes to `src/app/Router.tsx`.
+- Created comprehensive test suite for Milestone 11:
+  - Unit tests: `tests/unit/checkoutValidation.test.ts` (7 tests covering COD shipping threshold math, high-value order verification flags, `#PK-XXXXX` formatting, and Zod checkout payloads).
+  - Integration tests: `tests/integration/checkoutApi.test.ts` (1 test covering atomic D1 order retrieval and timeline assembly).
+  - Storefront E2E tests: `tests/e2e/checkout.test.tsx` (2 tests covering empty checkout fallback and Order Confirmation Page loading state).
+
+---
+
 ## [v0.11.0] - 2026-07-30 — Milestone 10: Discount Code & Coupon Promotion Engine
 ### Added
 - Created D1 SQLite migration `migrations/0009_discounts.sql` establishing the `discounts` promotional table (`code`, `type`, `value`, `min_order_pkr`, `max_discount_pkr`, `start_time`, `end_time`, `usage_limit`, `used_count`, `is_active`) indexed on code and status, and seeding initial Pakistani clothing sales coupons (`AZADI14`, `LAWNSALE500`, `EXPIRED10`).
@@ -305,7 +332,6 @@ All notable changes to this project are documented in this file. The format is b
 
 ## [Unreleased] — Upcoming Development Milestones
 
-- **[v0.12.0] - Planned** — Milestone 11: Cash on Delivery (COD) Checkout Engine
 - **[v0.13.0] - Planned** — Milestone 12: Order Lifecycle Management & Audit Timeline
 - **[v0.14.0] - Planned** — Milestone 13: Admin Dashboard & Core E-Commerce Analytics
 - **[v1.0.0] - Planned** — Milestone 14: Version 1 Production Hardening, Audit & Stable Release

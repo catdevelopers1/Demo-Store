@@ -45,6 +45,10 @@ import {
   DiscountProvider,
   AdminDiscountManager,
 } from '../features/discounts';
+import {
+  CodCheckoutPage,
+  OrderConfirmationPage,
+} from '../features/checkout';
 
 export const AppRouter: React.FC = () => {
   return (
@@ -67,6 +71,11 @@ export const AppRouter: React.FC = () => {
                             <Route path="products" element={<ProductCatalogGrid />} />
                             <Route path="product/:slug" element={<ProductDetailView />} />
                             <Route path="search" element={<CatalogDiscoveryPage />} />
+                            <Route path="checkout" element={<CodCheckoutPage />} />
+                            <Route
+                              path="order-confirmation/:orderNumber"
+                              element={<OrderConfirmationPage />}
+                            />
                             <Route
                               path="account"
                               element={

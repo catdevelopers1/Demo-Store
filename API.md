@@ -652,3 +652,84 @@ Protected endpoint requiring `ADMIN` role claim. Updates coupon rules or toggles
 
 ### 13.5 Delete Promo Coupon (`DELETE /api/v1/admin/discounts/:id`)
 Protected endpoint requiring `ADMIN` role claim. Deletes coupon code from D1.
+
+---
+
+## 14. Cash on Delivery (COD) Checkout Endpoints Detail (Milestone 11 — `v0.12.0`)
+
+### 14.1 Place Cash on Delivery Order (`POST /api/v1/checkout/cod`)
+Public checkout endpoint (supporting guest and logged-in customers) that places an order specifically architected for Pakistani Cash on Delivery. Enforces **Turnstile challenge verification** and executes an **ACID atomic Cloudflare D1 batch transaction**:
+1. Authoritatively re-validates cart items, server-side prices, and inventory availability (`validateCartItems`).
+2. Evaluates promotional coupon if provided (`evaluateDiscount`).
+3. Computes COD shipping charge in PKR (`calculateCodShippingPkr`).
+4. Reserves SKU stock via atomic conditional SQL constraints (`WHERE quantity_available >= ?`).
+5. Inserts order header (`orders`), line items (`order_items`), and initial audit log record (`order_timeline`).
+6. Flags orders over PKR 25,000 threshold as `PENDING_VERIFICATION` for manual SMS/WhatsApp verification.
+
+- **Request Body:**
+  ```json
+  {
+    "items": [
+      { "variantId": "var_lwn_01_grn", "quantity": 1 }
+    ],
+    "couponCode": "AZADI14",
+    "shippingAddress": {
+      "recipientName": "Ahmed Khan",
+      "phone": "0300-1234567",
+      "provinceState": "Punjab",
+      "city": "Lahore",
+      "streetAddress": "House 12, Street 4, Gulberg III",
+      "postalCode": "54660",
+      "isDefault": false
+    },
+    "guestPhone": "0300-1234567",
+    "guestEmail": "ahmed@lahore.pk",
+    "notes": "Please call before arrival",
+    "turnstileToken": "0x4AAAAAA..."
+  }
+  ```
+- **Success Response (`201 Created`):**
+  ```json
+  {
+    "success": true,
+    "data": {
+      "id": "ord_1753800000000",
+      "orderNumber": "#PK-10482",
+      "status": "CONFIRMED",
+      "paymentMethod": "COD",
+      "subtotalPkr": 6500,
+      "discountPkr": 975,
+      "shippingPkr": 0,
+      "totalPkr": 5525,
+      "shippingAddress": {
+        "recipientName": "Ahmed Khan",
+        "phone": "0300-1234567",
+        "city": "Lahore",
+        "provinceState": "Punjab",
+        "streetAddress": "House 12, Street 4, Gulberg III",
+        "postalCode": "54660"
+      },
+      "items": [
+        {
+          "sku": "PK-LWN-GB-GRN",
+          "productName": "Gul-e-Bahar Unstitched Lawn 3-Piece",
+          "unitPricePkr": 6500,
+          "quantity": 1,
+          "totalPkr": 6500
+        }
+      ],
+      "timeline": [
+        {
+          "oldStatus": null,
+          "newStatus": "CONFIRMED",
+          "comment": "Order placed via Pakistani Cash on Delivery (COD)"
+        }
+      ]
+    }
+  }
+  ```
+
+### 14.2 Get Order Confirmation & Status by Number (`GET /api/v1/orders/:orderNumber`)
+Public endpoint returning complete order confirmation details and lifecycle audit timeline by executive order identifier (e.g. `#PK-10001`).
+- **Success Response (`200 OK`):** Returns `CodOrder` object.
+- **Error Response (`404 Not Found`):** Returns error envelope if `#PK-XXXXX` identifier does not exist.

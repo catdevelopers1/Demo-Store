@@ -19,7 +19,8 @@ Every milestone is strictly versioned. **Do not combine multiple large milestone
 - **[COMPLETED] v0.9.0 — Milestone 8:** Storefront Product Discovery & FTS5 Edge Search
 - **[COMPLETED] v0.10.0 — Milestone 9:** Shopping Cart & Stock Validation Engine
 - **[COMPLETED] v0.11.0 — Milestone 10:** Discount Code & Coupon Promotion Engine
-- **v0.12.0 — Milestone 11:** Cash on Delivery (COD) Checkout Engine
+- **[COMPLETED] v0.12.0 — Milestone 11:** Cash on Delivery (COD) Checkout Engine
+- **v0.13.0 — Milestone 12:** Order Lifecycle Management & Audit Timeline
 - **v0.6.0 — Milestone 5:** R2 Product Image & Asset Pipeline
 - **v0.7.0 — Milestone 6:** Inventory & Stock Management Engine
 - **v0.8.0 — Milestone 7:** Customer Profile & Pakistani Address Book
@@ -319,8 +320,9 @@ Every milestone is strictly versioned. **Do not combine multiple large milestone
 
 ---
 
-### Milestone 11: Cash on Delivery (COD) Checkout Engine (v0.12.0)
+### Milestone 11: Cash on Delivery (COD) Checkout Engine (v0.12.0) — [COMPLETED]
 - **Goal:** Build a frictionless, conversion-optimized Cash on Delivery checkout flow specifically tailored for the Pakistani market with Turnstile bot verification and automated COD shipping rate calculation.
+- **Status:** Completed on 2026-07-30 (`v0.12.0`). All type checking, linting, unit tests, integration tests, and E2E checkout tests passing.
 - **Features included:**
   - COD Checkout Form (Guest or Logged-in Customer): Full Name, Pakistani Mobile (`03XX...`), City selector, Street Address, Optional Order Notes.
   - Shipping fee calculation engine: reads free-shipping threshold from `store_settings` and calculates shipping PKR.
@@ -447,6 +449,7 @@ Every milestone is strictly versioned. **Do not combine multiple large milestone
 - **Milestone 8 (`v0.9.0`):** Complete & Verified (2026-07-30).
 - **Milestone 9 (`v0.10.0`):** Complete & Verified (2026-07-30).
 - **Milestone 10 (`v0.11.0`):** Complete & Verified (2026-07-30).
-- **Next Planned Release:** Milestone 11 (`v0.12.0`) — Cash on Delivery (COD) Checkout Engine.
+- **Milestone 11 (`v0.12.0`):** Complete & Verified (2026-07-30).
+- **Next Planned Release:** Milestone 12 (`v0.13.0`) — Order Lifecycle Management & Audit Timeline.
   - In accordance with the **Project Constitution**: *"Never continue implementing additional features until the current milestone is fully complete. Build only the approved milestone."*
-  - Ready to commence Milestone 11 (`v0.12.0`) upon user command.
+  - Ready to commence Milestone 12 (`v0.13.0`) upon user command.

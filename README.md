@@ -49,8 +49,8 @@ In accordance with the **Project Constitution**, the following documentation sui
 ## Engineering Status & Current Release
 
 - **Roadmap & Architecture:** Fully approved by User.
-- **Current Version:** `v0.11.0` (Milestone 10: Discount Code & Coupon Promotion Engine).
-- **Next Milestone:** `v0.12.0` (Milestone 11: Cash on Delivery (COD) Checkout Engine).
+- **Current Version:** `v0.12.0` (Milestone 11: Cash on Delivery (COD) Checkout Engine).
+- **Next Milestone:** `v0.13.0` (Milestone 12: Order Lifecycle Management & Audit Timeline).
 
 In accordance with the **Project Constitution**, each milestone is built, tested, audited, and tagged independently before moving to the next.
 
