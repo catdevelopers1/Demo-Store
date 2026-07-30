@@ -1,0 +1,43 @@
+name: Framework CI — Pakistani Commerce Foundation
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  verify:
+    name: Verify Milestone Standards
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Strict TypeScript Type Checking
+        run: npm run typecheck
+
+      - name: ESLint Code Quality Check
+        run: npm run lint
+
+      - name: Run Unit Tests
+        run: npm run test:unit
+
+      - name: Run Integration Tests
+        run: npm run test:integration
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+
+      - name: Run End-to-End Tests
+        run: npm run test:e2e
