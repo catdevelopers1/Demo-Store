@@ -230,3 +230,26 @@ When an order is submitted to `POST /api/v1/checkout/cod`, the following SQL ope
    `INSERT INTO order_timeline (id, order_id, old_status, new_status, comment) VALUES (..., NULL, 'CONFIRMED', 'Order placed via COD')`
 
 If any statement fails (e.g., insufficient stock constraint), the entire batch transaction rolls back immediately with zero database corruption.
+
+---
+
+## 6. COD Order Lifecycle & Audit Timeline State Machine (Milestone 12 — `v0.13.0`)
+
+1. **State Machine Transition Matrix:**
+   - `PENDING_VERIFICATION` -> `['CONFIRMED', 'CANCELLED']` (High-value orders > 25,000 PKR require phone verification before dispatch).
+   - `CONFIRMED` -> `['PROCESSING', 'SHIPPED', 'CANCELLED']`
+   - `PROCESSING` -> `['SHIPPED', 'CANCELLED']`
+   - `SHIPPED` -> `['DELIVERED', 'RETURNED']`
+   - `DELIVERED` -> `['RETURNED']`
+   - `CANCELLED` -> `[]` (Terminal state)
+   - `RETURNED` -> `[]` (Terminal state)
+
+2. **Atomic Inventory Restock on Order Cancellation / Return:**
+   When an admin transitions an order to `CANCELLED` or `RETURNED` (with `restockInventory: true`), `releaseStock` (`src/features/inventory/api/reservation.ts`) executes atomically:
+   - `UPDATE inventory_items SET quantity_reserved = MAX(0, quantity_reserved - ?), quantity_available = quantity_available + ?, updated_at = ? WHERE variant_id = ?`
+   - `INSERT INTO inventory_logs (id, variant_id, change_qty, reason, reference_id, comment) VALUES (..., 'CANCELLATION' | 'RETURN', ...)`
+
+3. **Migration `0011_order_timeline.sql`:**
+   - Creates compound index `idx_orders_tracking ON orders(order_number, guest_phone)` to accelerate customer order tracking lookups.
+   - Creates index `idx_order_timeline_created ON order_timeline(created_at DESC)` for audit chronological sorting.
+   - Seeds realistic demo COD orders across all lifecycle states (`#PK-10002` PENDING_VERIFICATION, `#PK-10003` PROCESSING, `#PK-10004` SHIPPED, `#PK-10005` DELIVERED, `#PK-10006` CANCELLED).

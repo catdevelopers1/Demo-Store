@@ -57,6 +57,11 @@ import {
   handleCodCheckout,
   handleGetOrderByNumber,
 } from '../features/checkout/api';
+import {
+  handleTrackOrder,
+  handleGetAdminOrders,
+  handleUpdateOrderStatus,
+} from '../features/orders/api';
 
 /**
  * Cloudflare Worker Edge fetch handler for the commerce framework
@@ -84,7 +89,7 @@ export default {
         const isDbConfigured = Boolean(env.DB);
         return createSuccessResponse({
           status: 'healthy',
-          version: '0.12.0',
+          version: '0.13.0',
           edge: 'Cloudflare Workers',
           dbConfigured: isDbConfigured,
           timestamp: new Date().toISOString(),
@@ -247,6 +252,23 @@ export default {
       if (url.pathname === '/api/v1/checkout/cod' && request.method === 'POST') {
         return await handleCodCheckout(request, env);
       }
+      if (url.pathname === '/api/v1/orders/track' && request.method === 'GET') {
+        return await handleTrackOrder(request, env);
+      }
+      if (url.pathname === '/api/v1/admin/orders' && request.method === 'GET') {
+        return await handleGetAdminOrders(request, env);
+      }
+      if (
+        url.pathname.startsWith('/api/v1/admin/orders/') &&
+        url.pathname.endsWith('/status') &&
+        (request.method === 'PATCH' || request.method === 'PUT')
+      ) {
+        const id = url.pathname
+          .replace('/api/v1/admin/orders/', '')
+          .replace('/status', '')
+          .trim();
+        return await handleUpdateOrderStatus(request, env, id);
+      }
       if (url.pathname.startsWith('/api/v1/orders/') && request.method === 'GET') {
         const orderNumber = url.pathname.replace('/api/v1/orders/', '').trim();
         return await handleGetOrderByNumber(env, orderNumber);
@@ -263,7 +285,7 @@ export default {
       }
 
       // Fallback for static assets or unsupported routes
-      return new Response('Pakistani Commerce Framework Edge Backend v0.12.0', {
+      return new Response('Pakistani Commerce Framework Edge Backend v0.13.0', {
         status: 200,
         headers: { 'Content-Type': 'text/plain; charset=utf-8' },
       });

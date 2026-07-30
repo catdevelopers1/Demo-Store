@@ -49,6 +49,10 @@ import {
   CodCheckoutPage,
   OrderConfirmationPage,
 } from '../features/checkout';
+import {
+  OrderTrackingPage,
+  AdminOrderManager,
+} from '../features/orders';
 
 export const AppRouter: React.FC = () => {
   return (
@@ -76,6 +80,7 @@ export const AppRouter: React.FC = () => {
                               path="order-confirmation/:orderNumber"
                               element={<OrderConfirmationPage />}
                             />
+                            <Route path="track-order" element={<OrderTrackingPage />} />
                             <Route
                               path="account"
                               element={
@@ -137,6 +142,14 @@ export const AppRouter: React.FC = () => {
                               element={
                                 <AdminGuard>
                                   <AdminDiscountManager />
+                                </AdminGuard>
+                              }
+                            />
+                            <Route
+                              path="admin/orders"
+                              element={
+                                <AdminGuard>
+                                  <AdminOrderManager />
                                 </AdminGuard>
                               }
                             />

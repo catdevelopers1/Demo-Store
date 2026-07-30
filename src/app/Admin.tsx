@@ -38,6 +38,13 @@ export const AdminView: React.FC = () => {
           </div>
           <div className="flex flex-wrap items-center gap-3">
             <Link
+              to="/admin/orders"
+              className="flex items-center gap-1.5 bg-emerald-700 hover:bg-emerald-600 text-white px-4 py-2 rounded-xl text-xs font-semibold transition-colors shadow-sm"
+            >
+              <Truck className="w-4 h-4" />
+              <span>Orders</span>
+            </Link>
+            <Link
               to="/admin/products"
               className="flex items-center gap-1.5 bg-emerald-700 hover:bg-emerald-600 text-white px-4 py-2 rounded-xl text-xs font-semibold transition-colors shadow-sm"
             >
@@ -86,16 +93,21 @@ export const AdminView: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-          <div className="bg-stone-800/80 border border-stone-700/60 p-6 rounded-2xl">
+          <Link
+            to="/admin/orders"
+            className="bg-stone-800/80 border border-stone-700/60 p-6 rounded-2xl hover:border-emerald-500/50 transition-colors block"
+          >
             <div className="flex items-center justify-between mb-4">
               <span className="text-xs text-stone-400 font-medium uppercase tracking-wider">
-                Pending COD Orders
+                COD Order Lifecycle
               </span>
               <Truck className="w-5 h-5 text-emerald-400" />
             </div>
-            <p className="text-3xl font-extrabold">0</p>
-            <p className="text-xs text-stone-500 mt-1">Requires Pakistani SMS/phone verification</p>
-          </div>
+            <p className="text-3xl font-extrabold">6</p>
+            <p className="text-xs text-stone-500 mt-1">
+              View Kanban board &amp; immutable audit log
+            </p>
+          </Link>
 
           <div className="bg-stone-800/80 border border-stone-700/60 p-6 rounded-2xl">
             <div className="flex items-center justify-between mb-4">
@@ -123,7 +135,7 @@ export const AdminView: React.FC = () => {
         <div className="mt-8 p-4 rounded-xl bg-emerald-950/50 border border-emerald-800/50 flex items-center gap-3 text-xs text-emerald-300">
           <ShieldAlert className="w-5 h-5 text-emerald-400 shrink-0" />
           <span>
-            Milestone 10 (`v0.11.0`): Discount Code & Coupon Promotion Engine operational. Click "Discounts" above to manage promo codes and sale campaigns.
+            Milestone 12 (`v0.13.0`): Order Lifecycle Management & Audit Timeline operational. Click "Orders" above to manage COD state transitions and inspect audit logs.
           </span>
         </div>
       </div>

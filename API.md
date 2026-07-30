@@ -733,3 +733,57 @@ Public checkout endpoint (supporting guest and logged-in customers) that places 
 Public endpoint returning complete order confirmation details and lifecycle audit timeline by executive order identifier (e.g. `#PK-10001`).
 - **Success Response (`200 OK`):** Returns `CodOrder` object.
 - **Error Response (`404 Not Found`):** Returns error envelope if `#PK-XXXXX` identifier does not exist.
+
+---
+
+## 15. Order Lifecycle Management & Audit Timeline Endpoints (`/api/v1/orders/*`, `/api/v1/admin/orders/*`) — [Milestone 12 - v0.13.0]
+
+### 15.1 Public Customer COD Order Tracking (`GET /api/v1/orders/track?orderNumber=#PK-XXXXX&phone=03XX...`)
+Public endpoint for customers or guests to track COD order progress and view the immutable audit timeline. Verifies that the supplied Pakistani mobile number matches `orders.guest_phone` (with formatting normalization e.g. `0300-1234567` and `+923001234567`).
+- **Query Parameters:**
+  - `orderNumber`: Executive order number (e.g. `#PK-10001` or `PK-10001`).
+  - `phone`: Pakistani mobile number (11-digit `03XX...`).
+- **Success Response (`200 OK`):**
+  ```json
+  {
+    "success": true,
+    "data": {
+      "id": "ord_test_10001",
+      "orderNumber": "#PK-10001",
+      "status": "CONFIRMED",
+      "paymentMethod": "COD",
+      "totalPkr": 6500,
+      "items": [],
+      "timeline": [
+        {
+          "oldStatus": null,
+          "newStatus": "CONFIRMED",
+          "comment": "Order placed via Cash on Delivery (COD)"
+        }
+      ]
+    }
+  }
+  ```
+- **Error Response (`404 Not Found`):** Returned if the order number is not found or the phone number does not match (to protect customer privacy).
+
+### 15.2 Admin Order Lifecycle Listing (`GET /api/v1/admin/orders`)
+**RBAC Protected (`ADMIN` required):** Returns a paginated list of COD orders with full line items and timeline records. Supports filtering by status and search queries.
+- **Query Parameters:**
+  - `status` (optional): Filter by lifecycle state (`PENDING_VERIFICATION`, `CONFIRMED`, `PROCESSING`, `SHIPPED`, `DELIVERED`, `CANCELLED`, `RETURNED`).
+  - `search` (optional): Matches `#PK-XXXXX`, Pakistani phone, email, or recipient address details.
+  - `page` (default `1`), `limit` (default `20`).
+- **Success Response (`200 OK`):** Returns paginated `CodOrder[]` array with `{ page, limit, total }` metadata.
+
+### 15.3 Admin Order Lifecycle State Transition (`PATCH /api/v1/admin/orders/:id/status`)
+**RBAC Protected (`ADMIN` required):** Executes an atomic D1 batch transaction updating `orders.status` and writing an immutable audit record to `order_timeline` (`old_status`, `new_status`, `changed_by_user_id`, `comment`).
+- **State Machine Enforcement:** Blocks illegal state transitions (e.g. `DELIVERED` -> `PENDING_VERIFICATION` or modifying a terminal `CANCELLED` order).
+- **Atomic Inventory Restock:** If transitioning to `CANCELLED` or `RETURNED` (with `restockInventory: true`), automatically calls `releaseStock` from `src/features/inventory/api/reservation.ts`, restoring SKU `quantity_available` from reserved stock.
+- **Request Body (`application/json`):**
+  ```json
+  {
+    "status": "SHIPPED",
+    "comment": "Dispatched via TCS Courier. Tracking ID: TCS-78901234",
+    "restockInventory": true
+  }
+  ```
+- **Success Response (`200 OK`):** Returns the updated `CodOrder` object with the newly appended timeline record.

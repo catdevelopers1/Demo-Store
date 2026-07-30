@@ -39,7 +39,7 @@ export const Layout: React.FC = () => {
               {settings.brandName}
             </span>
             <span className="text-[10px] bg-emerald-100 text-emerald-800 font-semibold px-2 py-0.5 rounded-full uppercase tracking-wider hidden sm:inline">
-              COD Engine v0.12
+              COD Engine v0.13
             </span>
           </Link>
 
@@ -55,6 +55,12 @@ export const Layout: React.FC = () => {
               className="text-sm font-semibold text-stone-700 hover:text-emerald-800 transition-colors py-2"
             >
               Discover
+            </Link>
+            <Link
+              to="/track-order"
+              className="text-sm font-semibold text-stone-700 hover:text-emerald-800 transition-colors py-2"
+            >
+              Track Order
             </Link>
             <CategoryNavbarMenu />
             {user?.role === 'ADMIN' && (
@@ -132,7 +138,11 @@ export const Layout: React.FC = () => {
               <li>Cash on Delivery Policy</li>
               <li>Shipping across Pakistan</li>
               <li>Exchange & Returns</li>
-              <li>Order Tracking (#PK)</li>
+              <li>
+                <Link to="/track-order" className="hover:text-emerald-400 transition-colors">
+                  Order Tracking (#PK)
+                </Link>
+              </li>
             </ul>
           </div>
           <div>
@@ -154,7 +164,7 @@ export const Layout: React.FC = () => {
         </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 pt-8 border-t border-stone-800 text-xs text-stone-500 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p>© 2026 {settings.brandName}. Open-Source Reusable Commerce Framework.</p>
-          <p>Version v0.12.0 — Cash on Delivery (COD) Checkout Engine</p>
+          <p>Version v0.13.0 — Order Lifecycle Management &amp; Audit Timeline</p>
         </div>
       </footer>
     </div>

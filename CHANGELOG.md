@@ -4,6 +4,29 @@ All notable changes to this project are documented in this file. The format is b
 
 ---
 
+## [v0.13.0] - 2026-07-30 — Milestone 12: Order Lifecycle Management & Audit Timeline
+### Added
+- Created D1 SQLite migration `migrations/0011_order_timeline.sql` establishing compound index `idx_orders_tracking ON orders(order_number, guest_phone)` and timeline chronological index `idx_order_timeline_created`, and seeding demo COD orders across all Pakistani lifecycle states (`#PK-10002` through `#PK-10006`).
+- Implemented COD order lifecycle state machine & phone normalization utilities (`src/features/orders/utils/`):
+  - `stateMachine.ts`: defines valid COD transition paths (`PENDING_VERIFICATION` -> `CONFIRMED` -> `PROCESSING` -> `SHIPPED` -> `DELIVERED`, plus `CANCELLED` and `RETURNED`), transition validator (`isValidStatusTransition`), and Tailwind badge design tokens.
+  - `phone.ts`: implements Pakistani mobile number normalization (`normalizePakistaniPhone`) handling `0300-1234567`, `03001234567`, `+923001234567`, and `0092300...`, and safe equality matching (`matchesPakistaniPhone`).
+- Implemented Feature-First Order Lifecycle Management module (`src/features/orders/`):
+  - Zod schemas (`orderTrackingSchema`, `updateOrderStatusSchema`, `orderFilterSchema`) enforcing 11-digit Pakistani mobile verification for public order tracking and mandatory audit comments (`min(3)`) for staff state changes.
+  - Order repository (`src/features/orders/db/orderRepository.ts`):
+    - `getOrderByNumberAndPhone`: secure tracking lookup verifying phone number matches `orders.guest_phone` before returning order confirmation and timeline.
+    - `getAdminOrders`: paginated admin query filtered by status (`PENDING_VERIFICATION`, `CONFIRMED`, etc.) and search string.
+    - `updateOrderStatus`: atomic D1 batch transaction updating order status and recording an immutable audit trail entry in `order_timeline`. Automatically calls `releaseStock` from `src/features/inventory/api/reservation.ts` when transitioning to `CANCELLED` or `RETURNED` (`restockInventory: true`), restoring SKU `quantity_available` from reserved inventory.
+  - Edge Worker API endpoints (`src/features/orders/api/handlers.ts`):
+    - `GET /api/v1/orders/track?orderNumber=#PK-XXXXX&phone=03XX...` (Public Customer/Guest order tracking endpoint).
+    - `GET /api/v1/admin/orders` (RBAC Protected Admin listing endpoint).
+    - `PATCH /api/v1/admin/orders/:id/status` (RBAC Protected Admin state transition endpoint).
+  - React 19 Storefront and Admin UI components:
+    - `<OrderTrackingPage />` (`/track-order`) for public customers to track delivery progress, view itemized PKR bills, and check their timeline trail.
+    - `<AdminOrderManager />` (`/admin/orders`) with dual Table View and Kanban Board View, status filter dropdowns, Order Detail view modal, and Update Status modal requiring mandatory audit comment and inventory restock toggle.
+- Added 11 unit tests in `tests/unit/orderStateMachine.test.ts`, 4 integration tests in `tests/integration/orderApi.test.ts` (including atomic cancellation restock verification), and 2 E2E user-journey tests in `tests/e2e/orders.test.tsx`.
+
+---
+
 ## [v0.12.0] - 2026-07-30 — Milestone 11: Cash on Delivery (COD) Checkout Engine
 ### Added
 - Created D1 SQLite migration `migrations/0010_orders.sql` establishing `orders`, `order_items`, and `order_timeline` tables indexed on customer, order number, and status, and seeding initial demo COD order (`#PK-10001`).

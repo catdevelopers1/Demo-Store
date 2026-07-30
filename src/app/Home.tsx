@@ -102,14 +102,14 @@ export const Home: React.FC = () => {
         <div className="bg-stone-100 border border-stone-200 rounded-2xl p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
             <h3 className="font-semibold text-stone-900 text-sm">
-              Milestone 11 (`v0.12.0`): COD Checkout Engine Complete
+              Milestone 12 (`v0.13.0`): Order Lifecycle Management &amp; Audit Timeline Complete
             </h3>
             <p className="text-xs text-stone-600 mt-1">
-              Atomic D1 batch COD order placement, high-value verification flags, and Turnstile challenges operational.
+              COD state machine, mobile-verified customer tracking, and atomic cancellation restock operational.
             </p>
           </div>
           <span className="bg-emerald-800 text-white text-xs font-semibold px-3 py-1.5 rounded-lg">
-            Ready for Milestone 12
+            Ready for Milestone 13
           </span>
         </div>
       </section>

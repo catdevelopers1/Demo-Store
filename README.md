@@ -49,8 +49,8 @@ In accordance with the **Project Constitution**, the following documentation sui
 ## Engineering Status & Current Release
 
 - **Roadmap & Architecture:** Fully approved by User.
-- **Current Version:** `v0.12.0` (Milestone 11: Cash on Delivery (COD) Checkout Engine).
-- **Next Milestone:** `v0.13.0` (Milestone 12: Order Lifecycle Management & Audit Timeline).
+- **Current Version:** `v0.13.0` (Milestone 12: Order Lifecycle Management & Audit Timeline).
+- **Next Milestone:** `v0.14.0` (Milestone 13: Admin Dashboard & Core E-Commerce Analytics).
 
 In accordance with the **Project Constitution**, each milestone is built, tested, audited, and tagged independently before moving to the next.
 

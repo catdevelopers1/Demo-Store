@@ -20,15 +20,7 @@ Every milestone is strictly versioned. **Do not combine multiple large milestone
 - **[COMPLETED] v0.10.0 — Milestone 9:** Shopping Cart & Stock Validation Engine
 - **[COMPLETED] v0.11.0 — Milestone 10:** Discount Code & Coupon Promotion Engine
 - **[COMPLETED] v0.12.0 — Milestone 11:** Cash on Delivery (COD) Checkout Engine
-- **v0.13.0 — Milestone 12:** Order Lifecycle Management & Audit Timeline
-- **v0.6.0 — Milestone 5:** R2 Product Image & Asset Pipeline
-- **v0.7.0 — Milestone 6:** Inventory & Stock Management Engine
-- **v0.8.0 — Milestone 7:** Customer Profile & Pakistani Address Book
-- **v0.9.0 — Milestone 8:** Storefront Product Discovery & FTS5 Edge Search
-- **v0.10.0 — Milestone 9:** Shopping Cart & Stock Validation Engine
-- **v0.11.0 — Milestone 10:** Discount Code & Coupon Promotion Engine
-- **v0.12.0 — Milestone 11:** Cash on Delivery (COD) Checkout Engine
-- **v0.13.0 — Milestone 12:** Order Lifecycle Management & Audit Timeline
+- **[COMPLETED] v0.13.0 — Milestone 12:** Order Lifecycle Management & Audit Timeline
 - **v0.14.0 — Milestone 13:** Admin Dashboard & Core E-Commerce Analytics
 - **v0.15.0 / v1.0.0 — Milestone 14:** Version 1 Production Hardening, Audit & Stable Release
 
@@ -354,8 +346,9 @@ Every milestone is strictly versioned. **Do not combine multiple large milestone
 
 ---
 
-### Milestone 12: Order Lifecycle Management & Audit Timeline (v0.13.0)
+### Milestone 12: Order Lifecycle Management & Audit Timeline (v0.13.0) — [COMPLETED]
 - **Goal:** Implement complete order lifecycle management for Pakistani COD workflows with an immutable audit timeline and staff status tracking.
+- **Status:** Completed on 2026-07-30 (`v0.13.0`). All type checking, linting, unit tests, integration tests, and E2E order tracking and kanban board tests passing.
 - **Features included:**
   - COD Order State Machine:
     - `PENDING_VERIFICATION` -> `CONFIRMED` -> `PROCESSING` -> `SHIPPED` -> `DELIVERED`
@@ -450,6 +443,7 @@ Every milestone is strictly versioned. **Do not combine multiple large milestone
 - **Milestone 9 (`v0.10.0`):** Complete & Verified (2026-07-30).
 - **Milestone 10 (`v0.11.0`):** Complete & Verified (2026-07-30).
 - **Milestone 11 (`v0.12.0`):** Complete & Verified (2026-07-30).
-- **Next Planned Release:** Milestone 12 (`v0.13.0`) — Order Lifecycle Management & Audit Timeline.
+- **Milestone 12 (`v0.13.0`):** Complete & Verified (2026-07-30).
+- **Next Planned Release:** Milestone 13 (`v0.14.0`) — Admin Dashboard & Core E-Commerce Analytics.
   - In accordance with the **Project Constitution**: *"Never continue implementing additional features until the current milestone is fully complete. Build only the approved milestone."*
-  - Ready to commence Milestone 12 (`v0.13.0`) upon user command.
+  - Ready to commence Milestone 13 (`v0.14.0`) upon user command.
